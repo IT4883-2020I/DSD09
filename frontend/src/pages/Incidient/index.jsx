@@ -70,7 +70,7 @@ const Incident = () => {
     fetch();
     // code to run on component mount
   }, []);
-  return <div>dung</div>
+  return <Table columns={columns} loading = {loading} dataSource={users} />
 };
 
 export default Incident;

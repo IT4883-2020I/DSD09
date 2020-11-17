@@ -40,7 +40,8 @@ export const routes = [
   },
   {
     path: '/incidents',
-    component: () => Incident,
+    component: () => <Incident/>,
+    exact: true,
   },
   {
     path: '/supervised-object',
@@ -49,10 +50,6 @@ export const routes = [
   {
     path: '/statistic',
     component: () => <div>Báo cáo thống kê</div>,
-  },
-  {
-    path: '/problems',
-    component: () => <div>Sự cố</div>,
   },
   {
     path: '/warning',
