@@ -34,7 +34,6 @@ const Dashboard = () => {
         notify(error.message, "", "error");
         return;
       }
-      console.log("_users ", _users)
       setUsers(_users);
     }
     fetch();

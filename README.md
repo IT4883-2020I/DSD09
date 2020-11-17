@@ -3,6 +3,8 @@
 # dsd_20201
 DEMO URL: https://it4483.cf/
 
+### requires Node version 14 or higher
+
 ### Env Variables
 
 Create a .env file in the root and add the following
