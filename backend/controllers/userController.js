@@ -10,7 +10,6 @@ const authUser = asyncHandler(async (req, res) => {
     email,
     password
   } = req.body
-  console.log("email, password ", email, password)
   const user = await User.findOne({
     email
   })
