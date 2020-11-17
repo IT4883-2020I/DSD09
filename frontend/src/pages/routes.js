@@ -39,7 +39,7 @@ export const routes = [
     component: () => <div>Meta Data</div>,
   },
   {
-    path: '/incident',
+    path: '/incidents',
     component: () => Incident,
   },
   {
