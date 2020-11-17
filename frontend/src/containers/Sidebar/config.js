@@ -53,7 +53,7 @@ export const sidebarMenu = [
     key: 'Problems',
     heading: 'Sự cố',
     icon: 'fas fa-times-octagon',
-    route: '/problems',
+    route: '/incidents',
   },
   {
     key: 'SupervisedObject',

@@ -54,7 +54,7 @@ const columns = [
 ];
 const Incident = () => {
   const [users, setUsers] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const { notify, getData } = useBaseHook();
   useEffect(() => {
     async function fetch() {
@@ -70,7 +70,7 @@ const Incident = () => {
     fetch();
     // code to run on component mount
   }, []);
-  return <Table columns={columns} loading = {loading} dataSource={users} />;
+  return <div>dung</div>
 };
 
 export default Incident;
