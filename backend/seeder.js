@@ -43,6 +43,9 @@ const destroyData = async () => {
   try {
     await User.deleteMany();
     await IncidentTypeModel.deleteMany();
+    await IncidentModel.deleteMany();
+    await IncidentUserModel.deleteMany();
+    await IncidentImageModel.deleteMany();
 
     console.log("Data Destroyed!".red.inverse);
     process.exit();
