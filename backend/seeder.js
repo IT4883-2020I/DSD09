@@ -5,7 +5,7 @@ import users from './data/users.js'
 import User from './models/userModel.js' 
 import connectDB from './config/db.js'
 
-dotenv.config({ path: path.resolve(__dirname, '../.env') })
+dotenv.config()
 
 connectDB()
 
