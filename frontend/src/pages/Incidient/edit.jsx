@@ -18,7 +18,16 @@ const IncidentEdit = () => {
     {value: '3', label: 'Luan Phung'},
     {value: '4', label: 'Huy Tran'}
   ]
-
+  const status = [
+    {value: 'open', label: 'Open'},
+    {value: 'inProcess', label: 'In Process'},
+    {value: 'resolve', label: 'Resolve'},
+    {value: 'close', label: 'Close'}
+  ]
+  const levels = [
+    {value: 'normal', label: 'Normal'},
+    {value: 'urgency', label: 'Urgency'},
+  ]
   return (
       <div>
         <Row gutter={16} justify={'space-around'}>
@@ -43,7 +52,8 @@ const IncidentEdit = () => {
             <br/>
             <br/>
             <Form layout={'vertical'}>
-              <Form.Item label={'Người tạo'}><Tag>Hệ thống</Tag></Form.Item>
+              <Form.Item label={'Trạng thái'}><Select value={'inProcess'}>{status.map(u => <Option value={u.value}>{u.label}</Option>)}</Select></Form.Item>
+              <Form.Item label={'Loại'}><Select value={'urgency'}>{levels.map(u => <Option value={u.value}>{u.label}</Option>)}</Select></Form.Item>
               <Form.Item label={'Người phân công'}><Select value={'1'}>{users.map(u => <Option value={u.value}>{u.label}</Option>)}</Select></Form.Item>
               <Form.Item label={'Người được phân công'}><Select value={'2'}>{users.map(u => <Option value={u.value}>{u.label}</Option>)}</Select></Form.Item>
               <Form.Item label={'Logged Time'}><Input value={'4'}/></Form.Item>
