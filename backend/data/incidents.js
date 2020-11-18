@@ -7,8 +7,10 @@ const incidents = [
     status: 0,
     level: 0,
     createdBy: "5fb3ef4f061b30150c09af69",
-    updatedBy: "5fb3ef4f061b30150c09af69",
-    incident_type_id: "5fb3ed049208333500026dd5"
+    assignedBy: "5fb3ef4f061b30150c09af69",
+    dueDate: "2020-09-28",
+    loggedTime: 14400,
+    incidentTypeId: "5fb3ed049208333500026dd5"
   },
   {
     name: "Bão lũ sắp dồn dập tấn công, đê điều tại Việt Nam có đủ sức chống lũ?",
@@ -18,8 +20,10 @@ const incidents = [
     status: 0,
     level: 0,
     createdBy: "5fb3ef4f061b30150c09af69",
-    updatedBy: "5fb3ef4f061b30150c09af69",
-    incident_type_id: "5fb3ed049208333500026dd5"
+    assignedBy: "5fb3ef4f061b30150c09af69",
+    dueDate: "2020-09-29",
+    loggedTime: 14400,
+    incidentTypeId: "5fb3ed049208333500026dd5"
   },
   {
     name: "Nổ tại trạm biến áp Hiệp Bình Phước, TP.HCM cúp điện diện rộng",
@@ -29,8 +33,75 @@ const incidents = [
     status: 1,
     level: 1,
     createdBy: "5fb3ef4f061b30150c09af69",
-    updatedBy: "5fb3ef4f061b30150c09af69",
-    incident_type_id: "5fb3f103110fa42be8ef5ddf"
+    assignedBy: "5fb3ef4f061b30150c09af69",
+    dueDate: "2020-09-30",
+    loggedTime: 7200,
+    incidentTypeId: "5fb3f103110fa42be8ef5ddf"
+  },
+  {
+    name: "Đà Nẵng: Bất cẩn đốt thực bì gây cháy rừng",
+    description:
+      "Ngày 17.9, Công an H.Hòa Vang (TP.Đà Nẵng) xác định nguyên nhân vụ cháy rừng ở xã Hòa Nhơn (H.Hòa Vang) hôm 15.9 là do người dân đốt thực bì gây cháy lan.",
+    location: "Thôn Phước Thiện - Phước Hậu (xã Hòa Nhơn, H.Hòa Vang)",
+    status: 1,
+    level: 1,
+    createdBy: "5fb3ef4f061b30150c09af69",
+    assignedBy: "5fb3ef4f061b30150c09af69",
+    dueDate: "2020-12-30",
+    loggedTime: 7200,
+    incidentTypeId: "5fb46dd69c38f831b0dbc685"
+  },
+  {
+    name: "Vấn nạn cháy rừng ở Việt Nam",
+    description:
+      "Thời gian qua, do ảnh hưởng của biến đổi khí hậu dẫn đến diễn biến thời tiết thất thường khiến nhiều diện tích rừng Việt Nam bị thiêu rụi và đe dọa nghiêm trọng đến thảm thực vật rừng, cũng như ảnh hưởng tới phát triển kinh tế - xã hội, môi trường, khí hậu… Do đó, cháy rừng đang trở thành vấn đề nghiêm trọng của quốc gia cần có sự chung tay vào cuộc mạnh mẽ hơn nữa của toàn bộ hệ thống chính trị và ý thức của người dân trong bảo vệ và phát triển rừng Việt Nam.",
+    location: "Việt Nam",
+    status: 1,
+    level: 1,
+    createdBy: "5fb3ef4f061b30150c09af69",
+    assignedBy: "5fb3ef4f061b30150c09af69",
+    dueDate: "2020-12-30",
+    loggedTime: 7200,
+    incidentTypeId: "5fb46dd69c38f831b0dbc685"
+  },
+  {
+    name: "Vấn nạn cháy rừng ở Việt Nam",
+    description:
+      "Thời gian qua, do ảnh hưởng của biến đổi khí hậu dẫn đến diễn biến thời tiết thất thường khiến nhiều diện tích rừng Việt Nam bị thiêu rụi và đe dọa nghiêm trọng đến thảm thực vật rừng, cũng như ảnh hưởng tới phát triển kinh tế - xã hội, môi trường, khí hậu… Do đó, cháy rừng đang trở thành vấn đề nghiêm trọng của quốc gia cần có sự chung tay vào cuộc mạnh mẽ hơn nữa của toàn bộ hệ thống chính trị và ý thức của người dân trong bảo vệ và phát triển rừng Việt Nam.",
+    location: "Việt Nam",
+    status: 1,
+    level: 1,
+    createdBy: "5fb3ef4f061b30150c09af69",
+    assignedBy: "5fb3ef4f061b30150c09af69",
+    dueDate: "2020-12-30",
+    loggedTime: 7200,
+    incidentTypeId: "5fb46dd69c38f831b0dbc685"
+  },
+  {
+    name: "Trồng 1 tỉ cây xanh, được không?",
+    description:
+      "GS.TS Vương Văn Quỳnh, nguyên viện trưởng Viện sinh thái rừng và môi trường - Trường ĐH Lâm nghiệp, phân tích: 1 tỉ cây xanh nếu quy ra diện tích tương đương 300.000 - 400.000ha rừng trồng. Đây là diện tích không quá lớn nếu kết hợp cả trồng rừng tập trung cũng như trồng cây phân tán. ",
+    location: "Việt Nam",
+    status: 1,
+    level: 1,
+    createdBy: "5fb3ef4f061b30150c09af69",
+    assignedBy: "5fb3ef4f061b30150c09af69",
+    dueDate: "2020-12-30",
+    loggedTime: 7200,
+    incidentTypeId: "5fb46dd69c38f831b0dbc685"
+  },
+  {
+    name: "Bị cây xanh ngã đè: Ai chịu trách nhiệm?",
+    description:
+      "TTO - Sự việc cây xanh gãy đổ gây chết người gần đây lại dấy lên sự bức xúc, lo lắng của nhiều người dân, nhất là khi những 'cái chết từ trên trời rơi xuống' không phải lần đầu tiên và trách nhiệm đối với nhân mạng chưa được giải quyết tương ứng.",
+    location: "Việt Nam",
+    status: 1,
+    level: 1,
+    createdBy: "5fb3ef4f061b30150c09af69",
+    assignedBy: "5fb3ef4f061b30150c09af69",
+    dueDate: "2020-12-30",
+    loggedTime: 7200,
+    incidentTypeId: "5fb46dd69c38f831b0dbc685"
   }
 ];
 
