@@ -25,8 +25,8 @@ const importData = async () => {
     await IncidentUserModel.deleteMany();
     await IncidentImageModel.deleteMany();
 
-    const createdUsers = await User.insertMany(users);
-    const createdIncidentTypes = await IncidentTypeModel.insertMany(incidentTypes);
+    await User.insertMany(users);
+    await IncidentTypeModel.insertMany(incidentTypes);
     await IncidentModel.insertMany(incidents);
     await IncidentUserModel.insertMany(incidentUser);
     await IncidentImageModel.insertMany(incidentImages);

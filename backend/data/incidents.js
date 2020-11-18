@@ -7,8 +7,9 @@ const incidents = [
     status: 0,
     level: 0,
     createdBy: "5fb3ef4f061b30150c09af69",
-    updatedBy: "5fb3ef4f061b30150c09af69",
-    incident_type_id: "5fb3ed049208333500026dd5"
+    dueDate: "2020-09-28",
+    loggedTime: 14400,
+    incidentTypeId: "5fb3ed049208333500026dd5"
   },
   {
     name: "Bão lũ sắp dồn dập tấn công, đê điều tại Việt Nam có đủ sức chống lũ?",
@@ -18,8 +19,9 @@ const incidents = [
     status: 0,
     level: 0,
     createdBy: "5fb3ef4f061b30150c09af69",
-    updatedBy: "5fb3ef4f061b30150c09af69",
-    incident_type_id: "5fb3ed049208333500026dd5"
+    dueDate: "2020-09-29",
+    loggedTime: 14400,
+    incidentTypeId: "5fb3ed049208333500026dd5"
   },
   {
     name: "Nổ tại trạm biến áp Hiệp Bình Phước, TP.HCM cúp điện diện rộng",
@@ -29,8 +31,9 @@ const incidents = [
     status: 1,
     level: 1,
     createdBy: "5fb3ef4f061b30150c09af69",
-    updatedBy: "5fb3ef4f061b30150c09af69",
-    incident_type_id: "5fb3f103110fa42be8ef5ddf"
+    dueDate: "2020-09-30",
+    loggedTime: 7200,
+    incidentTypeId: "5fb3f103110fa42be8ef5ddf"
   }
 ];
 
