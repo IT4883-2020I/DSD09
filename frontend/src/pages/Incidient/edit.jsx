@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import to from "await-to-js";
 import userService from "@services/userService";
-import {Table, Tag, Space, Form, Col, Select, DatePicker, Input, Row} from "antd";
+import {Table, Tag, Space, Form, Col, Select, DatePicker, Input, Row, Button} from "antd";
 import useBaseHook from "@hooks/BaseHooks";
 import moment from'moment'
 import Images from "../../components/Images";
@@ -33,7 +33,7 @@ const IncidentEdit = () => {
         <Row gutter={16} justify={'space-around'}>
           <Col col={18}>
             <Form layout={'vertical'}>
-              <Form.Item label={'Tên sự cố'}><Input value={'Cây đổ vào Trạm điện cao thế Ngọc Liên6'}></Input></Form.Item>
+              <Form.Item label={'Tên sự cố'}><Input value={'Cây đổ vào Trạm điện cao thế Ngọc Liên'}></Input></Form.Item>
               <Form.Item label={'Mô tả'}><Input.TextArea rows={4} value={'Lúc 14h55’ ngày 15/4, tại khoảng cột 435/37, đường dây 471E58 của thôn Đắc Tà Vầng, xã Đắc Tôi, huyện Nam Giang, diều của người dân quanh khu vực thả lên bị đứt dây và vướng vào lưới điện, gây sự cố đường dây cấp điện một phần khu vực huyện.'}></Input.TextArea></Form.Item>
               <Form.Item label={'Ảnh'}><Images/></Form.Item>
               <Form.Item label={'Vị trí'}><Input value={'Trạm điện cao thế Ngọc Liên'}/></Form.Item>
@@ -58,6 +58,7 @@ const IncidentEdit = () => {
               <Form.Item label={'Người được phân công'}><Select value={'2'}>{users.map(u => <Option value={u.value}>{u.label}</Option>)}</Select></Form.Item>
               <Form.Item label={'Logged Time'}><Input value={'4'}/></Form.Item>
               <Form.Item label={'Due Date'}><DatePicker defaultValue={moment('2020/01/01', 'YYYY/MM/DD')} format={'YYYY/MM/DD'} /></Form.Item>
+              <Form.Item><Button type={'primary'} style={{marginRight: '8px'}}>Lưu</Button><Button>Quay lại</Button></Form.Item>
 
             </Form>
             </Col>

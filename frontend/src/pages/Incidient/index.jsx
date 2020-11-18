@@ -137,7 +137,7 @@ const data = [
         loggedTime: "4h"
     },
     {
-        title: "Cây đổ vào chạm biến áp trên quốc lộ 32 km16",
+        title: "Cây đổ vào Trạm điện cao thế Ngọc Liên",
         description:
             "Điển hình, lúc 14h55’ ngày 15/4, tại khoảng cột 435/37, đường dây 471E58 của thôn Đắc Tà Vầng, xã Đắc Tôi, huyện Nam Giang, diều của người dân quanh khu vực thả lên bị đứt dây và vướng vào lưới điện, gây sự cố đường dây cấp điện một phần khu vực huyện.",
         reporter: "Nguyễn Dung",
