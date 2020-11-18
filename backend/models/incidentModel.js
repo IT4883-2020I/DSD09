@@ -29,6 +29,11 @@ const incidentModel = mongoose.Schema(
       type: Schema.Types.ObjectId,
       ref: "Users"
     },
+
+    assignedBy: {
+      type: Schema.Types.ObjectId,
+      ref: "Users"
+    },
     dueDate: {
       type: Date
     },
