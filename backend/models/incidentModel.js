@@ -1,4 +1,6 @@
 import mongoose from "mongoose";
+import IncidentType from "./incidentTypeModel.js";
+
 var Schema = mongoose.Schema;
 
 const incidentModel = mongoose.Schema(
@@ -27,12 +29,17 @@ const incidentModel = mongoose.Schema(
     },
     createdBy: {
       type: Schema.Types.ObjectId,
-      ref: "Users"
+      ref: "User"
     },
-
+    assignee: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "User"
+      }
+    ],
     assignedBy: {
       type: Schema.Types.ObjectId,
-      ref: "Users"
+      ref: "User"
     },
     dueDate: {
       type: Date
@@ -40,16 +47,26 @@ const incidentModel = mongoose.Schema(
     loggedTime: {
       type: Number
     },
-    incidentTypeId: {
+    type: {
       type: Schema.Types.ObjectId,
-      ref: "incident_types"
-    }
+      ref: IncidentType
+    },
+    images: [
+      {
+        url: String
+      }
+    ],
+    videos: [
+      {
+        url: String
+      }
+    ]
   },
   {
     timestamps: true
   }
 );
 
-const IncidentModel = mongoose.model("incidents", incidentModel);
+const IncidentModel = mongoose.model("Incident", incidentModel);
 
 export default IncidentModel;

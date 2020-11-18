@@ -1,3 +1,10 @@
+const idDeDieu = "5fb552edb167b822900096cd";
+const idLuoiDien = "5fb552edb167b822900096d0";
+const idChayRung = "5fb552edb167b822900096cf";
+
+const adminUser = "5fb55512ae1a5e0910c315cc";
+const testUser = "5fb55512ae1a5e0910c315cd";
+
 const incidents = [
   {
     name: "Mưa lũ tại miền núi phía Bắc gây hàng loạt sự cố đê điều nguy hiểm",
@@ -6,11 +13,13 @@ const incidents = [
     location: "đê Hữu Hồng (Ba Vì)",
     status: 0,
     level: 0,
-    createdBy: "5fb3ef4f061b30150c09af69",
-    assignedBy: "5fb3ef4f061b30150c09af69",
+    createdBy: adminUser,
+    assignedBy: adminUser,
+    assignee: [adminUser, testUser],
     dueDate: "2020-09-28",
     loggedTime: 14400,
-    incidentTypeId: "5fb3ed049208333500026dd5"
+    type: idDeDieu,
+    videos: [{ url: "https://drive.google.com/uc?id=WNYNk31Ze2Gxt9IoDMvHxLx2E4HTq95R" }]
   },
   {
     name: "Bão lũ sắp dồn dập tấn công, đê điều tại Việt Nam có đủ sức chống lũ?",
@@ -19,11 +28,12 @@ const incidents = [
     location: "đê Hữu Đáy (Mỹ Đức)",
     status: 0,
     level: 0,
-    createdBy: "5fb3ef4f061b30150c09af69",
-    assignedBy: "5fb3ef4f061b30150c09af69",
+    createdBy: adminUser,
+    assignedBy: adminUser,
+    assignee: [testUser],
     dueDate: "2020-09-29",
     loggedTime: 14400,
-    incidentTypeId: "5fb3ed049208333500026dd5"
+    type: idDeDieu
   },
   {
     name: "Nổ tại trạm biến áp Hiệp Bình Phước, TP.HCM cúp điện diện rộng",
@@ -32,11 +42,10 @@ const incidents = [
     location: "Đường số 3, phường Hiệp Bình Phước, quận Thủ Đức, TP.HCM",
     status: 1,
     level: 1,
-    createdBy: "5fb3ef4f061b30150c09af69",
-    assignedBy: "5fb3ef4f061b30150c09af69",
+    createdBy: adminUser,
     dueDate: "2020-09-30",
     loggedTime: 7200,
-    incidentTypeId: "5fb3f103110fa42be8ef5ddf"
+    type: idLuoiDien
   },
   {
     name: "Đà Nẵng: Bất cẩn đốt thực bì gây cháy rừng",
@@ -45,11 +54,11 @@ const incidents = [
     location: "Thôn Phước Thiện - Phước Hậu (xã Hòa Nhơn, H.Hòa Vang)",
     status: 1,
     level: 1,
-    createdBy: "5fb3ef4f061b30150c09af69",
-    assignedBy: "5fb3ef4f061b30150c09af69",
+    createdBy: adminUser,
     dueDate: "2020-12-30",
     loggedTime: 7200,
-    incidentTypeId: "5fb46dd69c38f831b0dbc685"
+    type: idChayRung,
+    images: [{ url: "https://drive.google.com/uc?id=1JhMh7K9Bp8x8J-5e1U6xZ0WoC5Guu5GW" }]
   },
   {
     name: "Vấn nạn cháy rừng ở Việt Nam",
@@ -58,11 +67,10 @@ const incidents = [
     location: "Việt Nam",
     status: 1,
     level: 1,
-    createdBy: "5fb3ef4f061b30150c09af69",
-    assignedBy: "5fb3ef4f061b30150c09af69",
+    createdBy: adminUser,
     dueDate: "2020-12-30",
     loggedTime: 7200,
-    incidentTypeId: "5fb46dd69c38f831b0dbc685"
+    type: idChayRung
   },
   {
     name: "Vấn nạn cháy rừng ở Việt Nam",
@@ -71,11 +79,13 @@ const incidents = [
     location: "Việt Nam",
     status: 1,
     level: 1,
-    createdBy: "5fb3ef4f061b30150c09af69",
-    assignedBy: "5fb3ef4f061b30150c09af69",
+    createdBy: adminUser,
+    assignedBy: adminUser,
+    assignee: [adminUser],
     dueDate: "2020-12-30",
     loggedTime: 7200,
-    incidentTypeId: "5fb46dd69c38f831b0dbc685"
+    type: idChayRung,
+    images: [{ url: "https://drive.google.com/uc?id=1JhMh7K9Bp8x8J-5e1U6xZ0WoC5Guu5GW" }]
   },
   {
     name: "Trồng 1 tỉ cây xanh, được không?",
@@ -84,11 +94,11 @@ const incidents = [
     location: "Việt Nam",
     status: 1,
     level: 1,
-    createdBy: "5fb3ef4f061b30150c09af69",
-    assignedBy: "5fb3ef4f061b30150c09af69",
+    createdBy: adminUser,
     dueDate: "2020-12-30",
     loggedTime: 7200,
-    incidentTypeId: "5fb46dd69c38f831b0dbc685"
+    type: idChayRung,
+    images: [{ url: "https://drive.google.com/uc?id=1vni2i2w2YMAZfelRXilxaEvcygKIEWvd" }]
   },
   {
     name: "Bị cây xanh ngã đè: Ai chịu trách nhiệm?",
@@ -97,11 +107,14 @@ const incidents = [
     location: "Việt Nam",
     status: 1,
     level: 1,
-    createdBy: "5fb3ef4f061b30150c09af69",
-    assignedBy: "5fb3ef4f061b30150c09af69",
+    createdBy: adminUser,
     dueDate: "2020-12-30",
     loggedTime: 7200,
-    incidentTypeId: "5fb46dd69c38f831b0dbc685"
+    type: idChayRung,
+    images: [
+      { url: "https://drive.google.com/uc?id=1JhMh7K9Bp8x8J-5e1U6xZ0WoC5Guu5GW" },
+      { url: "https://drive.google.com/uc?id=1vni2i2w2YMAZfelRXilxaEvcygKIEWvd" }
+    ]
   }
 ];
 

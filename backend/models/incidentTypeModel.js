@@ -12,6 +12,6 @@ const incidentTypeModel = mongoose.Schema(
   }
 );
 
-const IncidentType = mongoose.model("incident_types", incidentTypeModel);
+const IncidentType = mongoose.model("Incident_Type", incidentTypeModel);
 
 export default IncidentType;
