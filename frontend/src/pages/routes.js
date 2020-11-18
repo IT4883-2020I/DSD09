@@ -4,6 +4,7 @@ import UserIndex from "./User/index"
 import Dashboard from './Dashboard';
 import Incident from './Incidient'
 import auth from "@utils/auth";
+import IncidentEdit from "./Incidient/edit";
 export const routes = [
   {
     path: '/',
@@ -41,6 +42,16 @@ export const routes = [
   {
     path: '/incidents',
     component: () => <Incident/>,
+    exact: true,
+  },
+  {
+    path: '/incidents',
+    component: () => <Incident/>,
+    exact: true,
+  },
+  {
+    path: '/incidents/1',
+    component: () => <IncidentEdit/>,
     exact: true,
   },
   {

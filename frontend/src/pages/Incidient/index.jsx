@@ -8,7 +8,7 @@ const columns = [
     name: "Tên sự cố",
     dataIndex: "title",
     key: "title",
-    render: (text) => <a>{text}</a>,
+    render: (text) => <a href={'/incidents/1'}>{text}</a>,
   },
   // {
   //   title: "Mô tả",
@@ -50,9 +50,9 @@ const columns = [
     })
   },
   {
-    title: "Ngày tạo",
-    dataIndex: "startAt",
-    key: "startAt",
+    title: "Người tạo",
+    dataIndex: "createdBy",
+    key: "createdBy",
   },
   {
     title: "Ngày dự kiến hoàn thành",
@@ -78,7 +78,8 @@ const data = [
     level: 'normal',
     startAt: '',
     dueDate: '',
-    loggedTime: 0
+    loggedTime: 0,
+    createdBy: 'Hệ thống'
 
   },
   {
@@ -90,19 +91,22 @@ const data = [
     level: 'urgency',
     startAt: '',
     dueDate: '',
-    loggedTime: '4h'
+    loggedTime: '4h',
+    createdBy: 'Luân Phùng'
+
 
   },
   {
     title: 'Cây đổ vào chạm biến áp trên quốc lộ 32 km16',
-    description: 'Điển hình, lúc 14h55’ ngày 15/4, tại khoảng cột 435/37, đường dây 471E58 của thôn Đắc Tà Vầng, xã Đắc Tôi, huyện Nam Giang, diều của người dân quanh khu vực thả lên bị đứt dây và vướng vào lưới điện, gây sự cố đường dây cấp điện một phần khu vực huyện.',
+    description: 'Lúc 14h55’ ngày 15/4, tại khoảng cột 435/37, đường dây 471E58 của thôn Đắc Tà Vầng, xã Đắc Tôi, huyện Nam Giang, diều của người dân quanh khu vực thả lên bị đứt dây và vướng vào lưới điện, gây sự cố đường dây cấp điện một phần khu vực huyện.',
     reporter: 'Nguyễn Dung',
     assignee: 'Việt Anh',
     status: 'inProcess',
     level: 'urgency',
     startAt: '',
     dueDate: '',
-    loggedTime: '4h'
+    loggedTime: '4h',
+    createdBy: 'Dung Nguyễn'
 
   }
 ]
