@@ -1,39 +1,32 @@
-import jwt from 'jsonwebtoken'
-import asyncHandler from 'express-async-handler'
-import User from '../models/userModel.js'
+import jwt from "jsonwebtoken";
+import asyncHandler from "express-async-handler";
+import User from "../models/userModel.js";
+import axios from "axios";
 
 const protect = asyncHandler(async (req, res, next) => {
-  let token
+  const apiToken = req.headers["api-token"] || "";
+  const projectType = req.headers["project-type"] || "";
 
-  if (
-    req.headers.authorization &&
-    req.headers.authorization.startsWith('Bearer')
-  ) {
-    try {
-      token = req.headers.authorization.split(' ')[1]
-      const decoded = jwt.verify(token, process.env.JWT_SECRET)
-
-      req.user = await User.findById(decoded.id).select('-password');
-      next()
-    } catch (error) {
-      console.error(error)
-      res.status(401)
-      throw new Error('Not authorized, token failed')
+  const verify = await axios.get("https://distributed.de-lalcool.com/api/verify-token", {
+    headers: {
+      "api-token": apiToken,
+      "project-type": projectType
     }
+  });
+  if (verify.data.status === "fail") {
+    return res.status(401).json(verify.data);
   }
-  if (!token) {
-    res.status(401)
-    throw new Error('Not authorized, no token')
-  }
-})
+  req.user = verify.data.result;
+  next();
+});
 
 const admin = (req, res, next) => {
   if (req.user && req.user.isAdmin) {
-    next()
+    next();
   } else {
-    res.status(401)
-    throw new Error('Not authorized as an admin')
+    res.status(401);
+    throw new Error("Not authorized as an admin");
   }
-}
+};
 
-export { protect, admin }
+export { protect, admin };

@@ -7,8 +7,8 @@ import {
 } from "../controllers/incidentController.js";
 import { protect, admin } from "../middleware/authMiddleware.js";
 
-router.get("/", getIncidents);
-router.route("/:id").get(getIncidentById).delete(deleteIncidentById);
+router.get("/", protect, getIncidents);
+router.route("/:id").get(protect, getIncidentById).delete(deleteIncidentById);
 //   .put(protect, updateUser)
 
 export default router;
