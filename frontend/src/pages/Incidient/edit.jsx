@@ -1,17 +1,12 @@
-import React, { useState, useEffect } from "react";
-import to from "await-to-js";
-import userService from "@services/userService";
-import {Table, Tag, Space, Form, Col, Select, DatePicker, Input, Row, Button} from "antd";
+import React, { useState } from "react";
+import {Tag, Form, Col, Select, DatePicker, Input, Row, Button} from "antd";
 import useBaseHook from "@hooks/BaseHooks";
 import moment from'moment'
 import Images from "../../components/Images";
-import GGMap from "../../components/GGMap";
 
 const {Option} = Select
 
 const IncidentEdit = () => {
-  const [loading, setLoading] = useState(false);
-  const { notify, getData } = useBaseHook();
   const users = [
     {value: '1', label: 'Dung Nguyen'},
     {value: '2', label: 'Viet Anh'},

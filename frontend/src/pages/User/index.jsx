@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import to from "await-to-js";
 import userService from "@services/userService";
-import { Table, Tag, Space } from "antd";
+import { Table } from "antd";
 import useBaseHook from "@hooks/BaseHooks";
 const columns = [
   {
