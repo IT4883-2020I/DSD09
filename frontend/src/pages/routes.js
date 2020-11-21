@@ -1,87 +1,87 @@
-import React from 'react';
-import { Switch, Route, Redirect } from 'react-router-dom';
-import UserIndex from "./User/index"
-import Dashboard from './Dashboard';
-import Incident from './Incidient'
+import React from "react";
+import { Switch, Route, Redirect } from "react-router-dom";
+import UserIndex from "./User/index";
+import Dashboard from "./Dashboard";
+import Incident from "./Incidient";
 import auth from "@utils/auth";
 import IncidentEdit from "./Incidient/edit";
 export const routes = [
   {
-    path: '/',
+    path: "/",
     component: Dashboard,
-    exact: true,
+    exact: true
   },
   {
-    path: '/drones',
-    component: () => <div>DroneManagement</div>,
+    path: "/drones",
+    component: () => <div>DroneManagement</div>
   },
   {
-    path: '/drone-state',
-    component: () => <div>Tình trạng drone</div>,
+    path: "/drone-state",
+    component: () => <div>Tình trạng drone</div>
   },
   {
-    path: '/fly-setting',
-    component: () => <div>Thiết lập đường bay</div>,
+    path: "/fly-setting",
+    component: () => <div>Thiết lập đường bay</div>
   },
   {
-    path: '/drone-statistic',
-    component: () => <div>Thống kê drone</div>,
+    path: "/drone-statistic",
+    component: () => <div>Thống kê drone</div>
   },
   {
-    path: '/flight-hub',
-    component: () => <div>Flight Hub</div>,
+    path: "/flight-hub",
+    component: () => <div>Flight Hub</div>
   },
   {
-    path: '/payloads',
-    component: () => <div>PayloadManagement</div>,
+    path: "/payloads",
+    component: () => <div>PayloadManagement</div>
   },
   {
-    path: '/metadata',
-    component: () => <div>Meta Data</div>,
+    path: "/metadata",
+    component: () => <div>Meta Data</div>
   },
   {
-    path: '/incidents',
-    component: () => <Incident/>,
-    exact: true,
+    path: "/incidents",
+    component: () => <Incident />,
+    exact: true
   },
   {
-    path: '/incidents',
-    component: () => <Incident/>,
-    exact: true,
+    path: "/incidents",
+    component: () => <Incident />,
+    exact: true
   },
   {
-    path: '/incidents/1',
-    component: () => <IncidentEdit/>,
-    exact: true,
+    path: "/incidents/1",
+    component: () => <IncidentEdit />,
+    exact: true
   },
   {
-    path: '/supervised-object',
-    component: () => <div>Đối tượng giám sát</div>,
+    path: "/supervised-object",
+    component: () => <div>Đối tượng giám sát</div>
   },
   {
-    path: '/statistic',
-    component: () => <div>Báo cáo thống kê</div>,
+    path: "/statistic",
+    component: () => <div>Báo cáo thống kê</div>
   },
   {
-    path: '/warning',
-    component: () => <div>Cảnh báo</div>,
+    path: "/warning",
+    component: () => <div>Cảnh báo</div>
   },
   {
-    path: '/activity-log',
-    component: () => <div>Lịch sử hoạt động</div>,
+    path: "/activity-log",
+    component: () => <div>Lịch sử hoạt động</div>
   },
   {
-    path: '/surveillance-domain',
-    component: () => <div>Miền giám sát</div>,
+    path: "/surveillance-domain",
+    component: () => <div>Miền giám sát</div>
   },
   {
-    path: '/handle-problem',
-    component: () => <div>Xử lý sự cố</div>,
+    path: "/handle-problem",
+    component: () => <div>Xử lý sự cố</div>
   },
   {
-    path: '/user-management',
-    component: () => <UserIndex/>,
-  },
+    path: "/user-management",
+    component: () => <UserIndex />
+  }
 ];
 
 const token = auth().token;
@@ -93,13 +93,17 @@ export default () => (
           key={path}
           exact={exact}
           path={path}
-          render={(props) => token
-            ? <Component />
-            : <Redirect to={{pathname: '/login', state: {from: props.location}}} />}
+          render={(props) =>
+            token ? (
+              <Component />
+            ) : (
+              <Redirect to={{ pathname: "/login", state: { from: props.location } }} />
+            )
+          }
           {...rest}
         />
       );
     })}
-    <Redirect to='/' />
+    <Redirect to="/" />
   </Switch>
 );
