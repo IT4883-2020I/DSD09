@@ -7,11 +7,11 @@ import {
   deleteIncidentType
 } from "../controllers/incidentTypeController.js";
 import { protect, isAdmin } from "../middleware/authMiddleware.js";
-import { validateCreateIncidentsList } from "../validator/incidents-types.js";
+import { validateCreateIncidentType } from "../validator/incidents-types.js";
 
 router
   .get("/", protect, isAdmin, getIncidentTypes)
-  .post("/", protect, isAdmin, validateCreateIncidentsList(), createIncidentType);
+  .post("/", protect, isAdmin, validateCreateIncidentType(), createIncidentType);
 router
   .route("/:id")
   .put(protect, isAdmin, updateIncidentType)
