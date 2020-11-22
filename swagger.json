@@ -8,28 +8,38 @@
   "basePath": "/api",
   "produces": ["application/json"],
   "paths": {
-    "/incidents": {
+    "POST /incidents": {
       "post": {
         "tags": ["incident"],
         "description": "API lấy danh sách sự cố",
         "parameters": [
           {
             "name": "api-token",
+            "description": "API Token lấy theo nhóm 3",
             "in": "header",
             "type": "string",
             "required": true
           },
           {
             "name": "project-type",
+            "description": "Project type lấy theo nhóm 3",
             "in": "header",
             "type": "string",
             "required": true
+          },
+          {
+            "name": "body",
+            "description": "Filter theo thông tin sự cố",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/IncidentList"
+            }
           }
         ],
         "responses": {}
       }
     },
-    "/incidents/{id}": {
+    "GET /incidents/{id}": {
       "get": {
         "tags": ["incident"],
         "description": "API lấy sự cố theo ID",
@@ -55,6 +65,506 @@
           }
         ],
         "responses": {}
+      }
+    },
+    "PUT /incidents/{id}": {
+      "put": {
+        "tags": ["incident"],
+        "description": "API cập nhật thông tin sự cố theo ID",
+        "parameters": [
+          {
+            "name": "api-token",
+            "in": "header",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "project-type",
+            "in": "header",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID của sự cố",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "body",
+            "description": "Body update sự cố",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/UpdateIncident"
+            }
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "GET /incident-types": {
+      "get": {
+        "tags": ["incident type"],
+        "description": "API lấy danh sách loại sự cố",
+        "parameters": [
+          {
+            "name": "api-token",
+            "in": "header",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "project-type",
+            "in": "header",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "POST /incident-types": {
+      "post": {
+        "tags": ["incident type"],
+        "description": "API tạo mới loại sự cố",
+        "parameters": [
+          {
+            "name": "api-token",
+            "in": "header",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "project-type",
+            "in": "header",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/CreateIncidentType"
+            }
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "PUT /incident-types/{id}": {
+      "put": {
+        "tags": ["incident type"],
+        "description": "API update loại sự cố",
+        "parameters": [
+          {
+            "name": "api-token",
+            "in": "header",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "project-type",
+            "in": "header",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID của loại sự cố",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/CreateIncidentType"
+            }
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "DELETE /incident-types/{id}": {
+      "delete": {
+        "tags": ["incident type"],
+        "description": "API xóa loại sự cố",
+        "parameters": [
+          {
+            "name": "api-token",
+            "in": "header",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "project-type",
+            "in": "header",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID của loại sự cố",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "GET /incident-status": {
+      "get": {
+        "tags": ["incident status"],
+        "description": "API lấy danh sách trạng thái sự cố",
+        "parameters": [
+          {
+            "name": "api-token",
+            "in": "header",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "project-type",
+            "in": "header",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "POST /incident-status": {
+      "post": {
+        "tags": ["incident status"],
+        "description": "API tạo mới trạng thái sự cố",
+        "parameters": [
+          {
+            "name": "api-token",
+            "in": "header",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "project-type",
+            "in": "header",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/CreateIncidentStatus"
+            }
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "PUT /incident-status/{id}": {
+      "put": {
+        "tags": ["incident status"],
+        "description": "API update trạng thái sự cố",
+        "parameters": [
+          {
+            "name": "api-token",
+            "in": "header",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "project-type",
+            "in": "header",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID của loại sự cố",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/CreateIncidentStatus"
+            }
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "DELETE /incident-status/{id}": {
+      "delete": {
+        "tags": ["incident status"],
+        "description": "API xóa trạng thái sự cố",
+        "parameters": [
+          {
+            "name": "api-token",
+            "in": "header",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "project-type",
+            "in": "header",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID của trạng thái sự cố",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "GET /incident-levels": {
+      "get": {
+        "tags": ["incident levels"],
+        "description": "API lấy danh sách mức độ của sự cố",
+        "parameters": [
+          {
+            "name": "api-token",
+            "in": "header",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "project-type",
+            "in": "header",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "POST /incident-levels": {
+      "post": {
+        "tags": ["incident levels"],
+        "description": "API tạo mới mức độ của sự cố",
+        "parameters": [
+          {
+            "name": "api-token",
+            "in": "header",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "project-type",
+            "in": "header",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/CreateIncidentStatus"
+            }
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "PUT /incident-levels/{id}": {
+      "put": {
+        "tags": ["incident levels"],
+        "description": "API update bản ghi mức độ của sự cố",
+        "parameters": [
+          {
+            "name": "api-token",
+            "in": "header",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "project-type",
+            "in": "header",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID của mức độ sự cố",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/CreateIncidentStatus"
+            }
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "DELETE /incident-levels/{id}": {
+      "delete": {
+        "tags": ["incident levels"],
+        "description": "API xóa bản ghi mức độ của sự cố",
+        "parameters": [
+          {
+            "name": "api-token",
+            "in": "header",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "project-type",
+            "in": "header",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID của mức độ sự cố",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "responses": {}
+      }
+    }
+  },
+
+  "definitions": {
+    "IncidentList": {
+      "properties": {
+        "name": {
+          "type": "string",
+          "example": "Nổ tại trạm biến áp"
+        },
+        "location": {
+          "type": "string",
+          "example": "Hà Nội"
+        },
+        "assignee": {
+          "type": "array",
+          "description": "Mảng các user id",
+          "example": [4, 5]
+        },
+        "dueDateMin": {
+          "type": "string",
+          "example": "2020-09-30"
+        },
+        "dueDateMax": {
+          "type": "string",
+          "example": "2020-10-30"
+        },
+        "status": {
+          "type": "number",
+          "description": "Status code của sự cố (lấy thông qua API /incident-status)",
+          "example": 2
+        },
+        "level": {
+          "type": "number",
+          "description": "Level code của sự cố (lấy thông qua API /incident-levels)",
+          "example": 0
+        },
+        "offset": {
+          "type": "number",
+          "description": "Offset phân trang",
+          "example": 0
+        },
+        "limit": {
+          "type": "number",
+          "description": "Limit phân trang",
+          "example": 20
+        }
+      }
+    },
+    "UpdateIncident": {
+      "properties": {
+        "name": {
+          "type": "string",
+          "example": "Nổ tại trạm biến áp"
+        },
+        "location": {
+          "type": "string",
+          "example": "Hà Nội"
+        },
+        "description": {
+          "type": "string",
+          "example": "Hà Nội description"
+        },
+        "type": {
+          "type": "string",
+          "description": "1 trong 4 giá trị LUOI_DIEN, CAY_TRONG, DE_DIEU, CHAY_RUNG",
+          "example": "LUOI_DIEN"
+        },
+        "assignee": {
+          "type": "array",
+          "description": "Mảng các user id",
+          "example": [4, 5]
+        },
+        "dueDate": {
+          "type": "string",
+          "example": "2020-09-30"
+        },
+        "status": {
+          "type": "number",
+          "description": "Status code của sự cố (lấy thông qua API /incident-status)",
+          "example": 2
+        },
+        "level": {
+          "type": "number",
+          "description": "Level code của sự cố (lấy thông qua API /incident-levels)",
+          "example": 0
+        },
+        "addImageIds": {
+          "type": "array",
+          "description": "Mảng các image_id của ảnh cần thêm sau khi dùng API của Luân để upload ảnh/video lên drive",
+          "example": "11XCIKGHhR-ycjsBYuK9sw9jpnLotQFxF"
+        },
+        "deleteImageIds": {
+          "type": "array",
+          "description": "Mảng các image_id của ảnh cần xóa sau khi dùng API của Luân để upload ảnh/video lên drive",
+          "example": "11XCIKGHhR-ycjsBYuK9sw9jpnLotQFxF"
+        },
+        "addVideoIds": {
+          "type": "array",
+          "description": "Mảng các image_id của ảnh cần thêm sau khi dùng API của Luân để upload ảnh/video lên drive",
+          "example": "11XCIKGHhR-ycjsBYuK9sw9jpnLotQFxF"
+        },
+        "deleteVideoIds": {
+          "type": "array",
+          "description": "Mảng các image_id của ảnh cần xóa sau khi dùng API của Luân để upload ảnh/video lên drive",
+          "example": "11XCIKGHhR-ycjsBYuK9sw9jpnLotQFxF"
+        }
+      }
+    },
+    "CreateIncidentType": {
+      "properties": {
+        "name": {
+          "type": "string",
+          "example": "Hỏa hoạn"
+        },
+        "type": {
+          "type": "string",
+          "example": "HOA_HOAN"
+        }
+      }
+    },
+    "CreateIncidentStatus": {
+      "properties": {
+        "name": {
+          "type": "string",
+          "example": "Closed"
+        }
       }
     }
   }
