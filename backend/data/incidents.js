@@ -29,7 +29,6 @@ const incidents = [
     assignedBy: adminDeDieu,
     assignee: [adminDeDieu, adminCayTrong],
     dueDate: "2020-09-28",
-    loggedTime: 14400,
     type: idDeDieu,
     videos: [{ url: "https://drive.google.com/uc?id=WNYNk31Ze2Gxt9IoDMvHxLx2E4HTq95R" }]
   },
@@ -44,7 +43,6 @@ const incidents = [
     assignedBy: adminDeDieu,
     assignee: [adminDeDieu],
     dueDate: "2020-09-29",
-    loggedTime: 14400,
     type: idDeDieu
   },
   {
@@ -56,7 +54,6 @@ const incidents = [
     level: urgencyLevel,
     createdBy: adminLuoiDien,
     dueDate: "2020-09-30",
-    loggedTime: 7200,
     type: idLuoiDien
   },
   {
@@ -68,7 +65,6 @@ const incidents = [
     level: normalLevel,
     createdBy: adminChayRung,
     dueDate: "2020-12-30",
-    loggedTime: 7200,
     type: idChayRung,
     images: [{ url: "https://drive.google.com/uc?id=1JhMh7K9Bp8x8J-5e1U6xZ0WoC5Guu5GW" }]
   },
@@ -81,7 +77,6 @@ const incidents = [
     level: urgencyLevel,
     createdBy: adminChayRung,
     dueDate: "2020-12-30",
-    loggedTime: 7200,
     type: idChayRung
   },
   {
@@ -95,7 +90,6 @@ const incidents = [
     assignedBy: adminChayRung,
     assignee: [adminChayRung],
     dueDate: "2020-12-30",
-    loggedTime: 7200,
     type: idChayRung,
     images: [{ url: "https://drive.google.com/uc?id=1JhMh7K9Bp8x8J-5e1U6xZ0WoC5Guu5GW" }]
   },
@@ -108,7 +102,6 @@ const incidents = [
     level: normalLevel,
     createdBy: adminChayRung,
     dueDate: "2020-12-30",
-    loggedTime: 7200,
     type: idChayRung,
     images: [{ url: "https://drive.google.com/uc?id=1vni2i2w2YMAZfelRXilxaEvcygKIEWvd" }]
   },
@@ -121,7 +114,6 @@ const incidents = [
     level: urgencyLevel,
     createdBy: adminChayRung,
     dueDate: "2020-12-30",
-    loggedTime: 7200,
     type: idChayRung,
     images: [
       { url: "https://drive.google.com/uc?id=1JhMh7K9Bp8x8J-5e1U6xZ0WoC5Guu5GW" },

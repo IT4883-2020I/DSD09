@@ -41,9 +41,6 @@ const incidentModel = mongoose.Schema(
     dueDate: {
       type: Date
     },
-    loggedTime: {
-      type: Number
-    },
     type: {
       type: Schema.Types.ObjectId,
       ref: IncidentType

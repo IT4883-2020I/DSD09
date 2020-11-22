@@ -19,4 +19,32 @@ const validateGetIncidentsList = () => {
   ];
 };
 
-export { validateGetIncidentsList };
+const validateUpdateIncident = () => {
+  return [
+    check("level", "Level must be numeric").isNumeric().optional({ nullable: true }),
+    check("status", "Status must be numeric").isNumeric().optional({ nullable: true }),
+    check("type", "Type must be in LUOI_DIEN, CAY_TRONG, CHAY_RUNG, DE_DIEU")
+      .custom((a) => {
+        return ["LUOI_DIEN", "CAY_TRONG", "CHAY_RUNG", "DE_DIEU"].includes(a);
+      })
+      .optional({ nullable: true }),
+    check("loggedTime", "loggedTime must be numeric > 0")
+      .isInt({ min: 0 })
+      .optional({ nullable: true }),
+    check("dueDate", "Invalid Due date").isISO8601("yyyy-mm-dd").optional({ nullable: true }),
+    check("addImageIds", "addImageIds must be Array").isArray().optional({ nullable: true }),
+    check("addVideoIds", "addVideoIds must be Array").isArray().optional({ nullable: true }),
+    check("deleteImageIds", "deleteImageIds must be Array").isArray().optional({ nullable: true }),
+    check("deleteVideoIds", "deleteVideoIds must be Array").isArray().optional({ nullable: true }),
+    check("assignee", "Assignee must be array of number")
+      .isArray()
+      .custom((a) => {
+        return a.every((e) => {
+          return Number.isInteger(e);
+        });
+      })
+      .optional({ nullable: true })
+  ];
+};
+
+export { validateGetIncidentsList, validateUpdateIncident };

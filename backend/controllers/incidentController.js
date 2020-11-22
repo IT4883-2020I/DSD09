@@ -1,7 +1,68 @@
 import asyncHandler from "express-async-handler";
 import Incident from "../models/incidentModel.js";
+import IncidentType from "../models/incidentTypeModel.js";
+import IncidentStatus from "../models/incidentStatusModel.js";
+import IncidentLevel from "../models/incidentLevelModel.js";
 import { validationResult } from "express-validator";
 import _ from "lodash";
+
+const updateIncident = asyncHandler(async (req, res) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    res.status(422).json({ errors: errors.array() });
+    return;
+  }
+  const incident = await findIncidentById(req.params.id);
+  if (incident.type.type !== req.user.type) {
+    res.status(404);
+    throw new Error("Incident not found");
+  }
+
+  // Update
+  const payload = req.body;
+  if (payload.location) incident.location = payload.location;
+  if (payload.name) incident.name = payload.name;
+  if (payload.description) incident.description = payload.description;
+  if (payload.dueDate) incident.dueDate = new Date(payload.dueDate);
+  if (payload.assignee) incident.assignee = payload.assignee;
+  if (payload.type) {
+    const incidentTypeId = await IncidentType.findOne({ type: payload.type }, "_id").exec();
+    incident.type = incidentTypeId;
+  }
+  if (payload.status !== undefined) {
+    const incidentStatusId = await IncidentStatus.findOne({ code: payload.status }, "_id").exec();
+    incident.status = incidentStatusId;
+  }
+  if (payload.level !== undefined) {
+    const incidentLevelId = await IncidentLevel.findOne({ code: payload.level }, "_id").exec();
+    incident.level = incidentLevelId;
+  }
+  if (payload.addImageIds && payload.addImageIds.length > 0) {
+    payload.addImageIds.forEach((element) => {
+      incident.images.push({ url: "https://drive.google.com/uc?id=" + element });
+    });
+  }
+  if (payload.addVideoIds && payload.addVideoIds.length > 0) {
+    payload.addImageIds.forEach((element) => {
+      incident.videos.push({ url: "https://drive.google.com/uc?id=" + element });
+    });
+  }
+  if (payload.deleteImageIds && payload.deleteImageIds.length > 0) {
+    incident.images = incident.images.filter((image) => {
+      let imageId = image.url.split("=")[1];
+      return !payload.deleteImageIds.includes(imageId);
+    });
+  }
+  if (payload.deleteVideoIds && payload.deleteVideoIds.length > 0) {
+    incident.videos = incident.videos.filter((video) => {
+      let videoId = video.url.split("=")[1];
+      return !payload.deleteVideoIds.includes(videoId);
+    });
+  }
+  await incident.save();
+  const newIncident = await findIncidentById(req.params.id);
+  res.json(newIncident);
+});
 
 const getIncidents = asyncHandler(async (req, res) => {
   const errors = validationResult(req);
@@ -32,11 +93,7 @@ const getIncidents = asyncHandler(async (req, res) => {
 
 const getIncidentById = asyncHandler(async (req, res) => {
   try {
-    const incident = await Incident.findById(req.params.id)
-      .populate("type")
-      .populate("status")
-      .populate("level")
-      .exec();
+    const incident = await findIncidentById(req.params.id);
     if (incident.type.type !== req.user.type) {
       res.status(404);
       throw new Error("Incident not found");
@@ -61,4 +118,13 @@ const buildFindQuery = (payload) => {
   return findQuery;
 };
 
-export { getIncidents, getIncidentById };
+const findIncidentById = async (id) => {
+  const incident = await Incident.findById(id)
+    .populate("type")
+    .populate("status")
+    .populate("level")
+    .exec();
+  return incident;
+};
+
+export { getIncidents, getIncidentById, updateIncident };

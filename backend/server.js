@@ -10,6 +10,7 @@ import swaggerUi from "swagger-ui-express";
 import swaggerDocument from "../swagger.json";
 
 import incidentRoutes from "./routes/incidentRoutes.js";
+import incidentTypeRoutes from "./routes/incidentTypeRoutes.js";
 import uploadRoutes from "./routes/uploadRoutes.js";
 
 dotenv.config();
@@ -25,6 +26,7 @@ if (process.env.NODE_ENV === "development") {
 app.use(express.json());
 
 app.use("/api/incidents", incidentRoutes);
+app.use("/api/incident-types", incidentTypeRoutes);
 app.use("/api/upload", uploadRoutes);
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
