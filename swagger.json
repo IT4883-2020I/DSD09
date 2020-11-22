@@ -8,7 +8,7 @@
   "basePath": "/api",
   "produces": ["application/json"],
   "paths": {
-    "POST /incidents": {
+    "POST /incidents/search": {
       "post": {
         "tags": ["incident"],
         "description": "API lấy danh sách sự cố",

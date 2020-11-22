@@ -8,7 +8,7 @@ import {
 import { protect, hasAuthorIncident } from "../middleware/authMiddleware.js";
 import { validateGetIncidentsList, validateUpdateIncident } from "../validator/incidents.js";
 
-router.post("/", protect, hasAuthorIncident, validateGetIncidentsList(), getIncidents);
+router.post("/search", protect, hasAuthorIncident, validateGetIncidentsList(), getIncidents);
 router
   .route("/:id")
   .get(protect, hasAuthorIncident, getIncidentById)
