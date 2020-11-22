@@ -1,5 +1,5 @@
-import express from 'express'
-const router = express.Router()
+import express from "express";
+const router = express.Router();
 import {
   authUser,
   registerUser,
@@ -8,23 +8,17 @@ import {
   getUsers,
   deleteUser,
   getUserById,
-  updateUser,
-} from '../controllers/userController.js'
-import {
-  protect,
-  admin
-} from '../middleware/authMiddleware.js'
+  updateUser
+} from "../controllers/userController.js";
+import { protect, isAdmin } from "../middleware/authMiddleware.js";
 
-router.route('/').post(registerUser).get(protect, getUsers)
-router.post('/login', authUser)
+router.route("/").post(registerUser).get(protect, getUsers);
+router.post("/login", authUser);
+router.route("/profile").get(protect, getUserProfile).put(protect, updateUserProfile);
 router
-  .route('/profile')
-  .get(protect, getUserProfile)
-  .put(protect, updateUserProfile)
-router
-  .route('/:id')
-  .delete(protect, admin, deleteUser)
+  .route("/:id")
+  .delete(protect, isAdmin, deleteUser)
   .get(protect, getUserById)
-  .put(protect, updateUser)
+  .put(protect, updateUser);
 
-export default router
+export default router;
