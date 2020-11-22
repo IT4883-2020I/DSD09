@@ -10,7 +10,7 @@ const getIncidentById = asyncHandler(async (req, res) => {
   try {
     const incident = await Incident.findById(req.params.id).populate("type").exec();
     if (incident.type.type !== req.user.type) {
-      res.status(401);
+      res.status(404);
       throw new Error("Incident not found");
     }
     res.json(incident);
