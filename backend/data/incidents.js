@@ -1,9 +1,14 @@
-const idDeDieu = "5fb552edb167b822900096cd";
-const idLuoiDien = "5fb552edb167b822900096d0";
-const idChayRung = "5fb552edb167b822900096cf";
+const idDeDieu = "5fb9da20a6183a3210f82ec4";
+const idLuoiDien = "5fb9da20a6183a3210f82ec7";
+const idChayRung = "5fb9da20a6183a3210f82ec6";
+const idCayTrong = "5fb9da20a6183a3210f82ec5";
 
 const adminUser = "5fb55512ae1a5e0910c315cc";
 const testUser = "5fb55512ae1a5e0910c315cd";
+const adminChayRung = 2;
+const adminLuoiDien = 3;
+const adminDeDieu = 4;
+const adminCayTrong = 5;
 
 const incidents = [
   {
@@ -13,9 +18,9 @@ const incidents = [
     location: "đê Hữu Hồng (Ba Vì)",
     status: 0,
     level: 0,
-    createdBy: adminUser,
-    assignedBy: adminUser,
-    assignee: [adminUser, testUser],
+    createdBy: adminDeDieu,
+    assignedBy: adminDeDieu,
+    assignee: [adminDeDieu, adminCayTrong],
     dueDate: "2020-09-28",
     loggedTime: 14400,
     type: idDeDieu,
@@ -28,9 +33,9 @@ const incidents = [
     location: "đê Hữu Đáy (Mỹ Đức)",
     status: 0,
     level: 0,
-    createdBy: adminUser,
-    assignedBy: adminUser,
-    assignee: [testUser],
+    createdBy: adminDeDieu,
+    assignedBy: adminDeDieu,
+    assignee: [adminDeDieu],
     dueDate: "2020-09-29",
     loggedTime: 14400,
     type: idDeDieu
@@ -42,7 +47,7 @@ const incidents = [
     location: "Đường số 3, phường Hiệp Bình Phước, quận Thủ Đức, TP.HCM",
     status: 1,
     level: 1,
-    createdBy: adminUser,
+    createdBy: adminLuoiDien,
     dueDate: "2020-09-30",
     loggedTime: 7200,
     type: idLuoiDien
@@ -54,7 +59,7 @@ const incidents = [
     location: "Thôn Phước Thiện - Phước Hậu (xã Hòa Nhơn, H.Hòa Vang)",
     status: 1,
     level: 1,
-    createdBy: adminUser,
+    createdBy: adminChayRung,
     dueDate: "2020-12-30",
     loggedTime: 7200,
     type: idChayRung,
@@ -67,7 +72,7 @@ const incidents = [
     location: "Việt Nam",
     status: 1,
     level: 1,
-    createdBy: adminUser,
+    createdBy: adminChayRung,
     dueDate: "2020-12-30",
     loggedTime: 7200,
     type: idChayRung
@@ -79,9 +84,9 @@ const incidents = [
     location: "Việt Nam",
     status: 1,
     level: 1,
-    createdBy: adminUser,
-    assignedBy: adminUser,
-    assignee: [adminUser],
+    createdBy: adminChayRung,
+    assignedBy: adminChayRung,
+    assignee: [adminChayRung],
     dueDate: "2020-12-30",
     loggedTime: 7200,
     type: idChayRung,
@@ -94,7 +99,7 @@ const incidents = [
     location: "Việt Nam",
     status: 1,
     level: 1,
-    createdBy: adminUser,
+    createdBy: adminChayRung,
     dueDate: "2020-12-30",
     loggedTime: 7200,
     type: idChayRung,
@@ -107,7 +112,7 @@ const incidents = [
     location: "Việt Nam",
     status: 1,
     level: 1,
-    createdBy: adminUser,
+    createdBy: adminChayRung,
     dueDate: "2020-12-30",
     loggedTime: 7200,
     type: idChayRung,

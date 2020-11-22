@@ -1,0 +1,61 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Incident",
+    "description": "API quản lý sự cố",
+    "version": "1.0"
+  },
+  "basePath": "/api",
+  "produces": ["application/json"],
+  "paths": {
+    "/incidents": {
+      "get": {
+        "tags": ["incident"],
+        "description": "API lấy danh sách sự cố",
+        "parameters": [
+          {
+            "name": "api-token",
+            "in": "header",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "project-type",
+            "in": "header",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/incidents/{id}": {
+      "get": {
+        "tags": ["incident"],
+        "description": "API lấy sự cố theo ID",
+        "parameters": [
+          {
+            "name": "api-token",
+            "in": "header",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "project-type",
+            "in": "header",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID của sự cố",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "responses": {}
+      }
+    }
+  }
+}

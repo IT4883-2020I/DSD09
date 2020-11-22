@@ -5,6 +5,10 @@ const incidentTypeModel = mongoose.Schema(
     name: {
       type: String,
       required: true
+    },
+    type: {
+      type: String,
+      required: true
     }
   },
   {

@@ -6,8 +6,9 @@ import cors from "cors";
 import morgan from "morgan";
 import { notFound, errorHandler } from "./middleware/errorMiddleware.js";
 import connectDB from "./config/db.js";
+import swaggerUi from "swagger-ui-express";
+import swaggerDocument from "../swagger.json";
 
-import userRoutes from "./routes/userRoutes.js";
 import incidentRoutes from "./routes/incidentRoutes.js";
 import uploadRoutes from "./routes/uploadRoutes.js";
 
@@ -23,9 +24,9 @@ if (process.env.NODE_ENV === "development") {
 
 app.use(express.json());
 
-app.use("/api/users", userRoutes);
 app.use("/api/incidents", incidentRoutes);
 app.use("/api/upload", uploadRoutes);
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 const __dirname = path.resolve();
 app.use("/uploads", express.static(path.join(__dirname, "/uploads")));
