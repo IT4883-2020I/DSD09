@@ -1,5 +1,7 @@
 import mongoose from "mongoose";
 import IncidentType from "./incidentTypeModel.js";
+import IncidentStatus from "./incidentStatusModel.js";
+import IncidentLevel from "./incidentLevelModel.js";
 
 var Schema = mongoose.Schema;
 
@@ -18,14 +20,12 @@ const incidentModel = mongoose.Schema(
       required: true
     },
     status: {
-      type: Number,
-      required: true,
-      default: 0
+      type: Schema.Types.ObjectId,
+      ref: IncidentStatus
     },
     level: {
-      type: Number,
-      required: true,
-      default: 0
+      type: Schema.Types.ObjectId,
+      ref: IncidentLevel
     },
     createdBy: {
       type: Number

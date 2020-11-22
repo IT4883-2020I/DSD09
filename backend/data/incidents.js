@@ -10,14 +10,21 @@ const adminLuoiDien = 3;
 const adminDeDieu = 4;
 const adminCayTrong = 5;
 
+const openStatus = "5fba2e79a1e657329c688903";
+const inProgressStatus = "5fba2e7aa1e657329c688904";
+const resolvedStatus = "5fba2e7aa1e657329c688905";
+
+const normalLevel = "5fba2e7aa1e657329c688906";
+const urgencyLevel = "5fba2e7aa1e657329c688907";
+
 const incidents = [
   {
     name: "Mưa lũ tại miền núi phía Bắc gây hàng loạt sự cố đê điều nguy hiểm",
     description:
       "Mưa lũ tại miền núi phía Bắc đã ảnh hưởng đến hệ thống đê điều nhiều nơi. Đặc biệt là tại Hà Nội và Phú Thọ.",
     location: "đê Hữu Hồng (Ba Vì)",
-    status: 0,
-    level: 0,
+    status: openStatus,
+    level: normalLevel,
     createdBy: adminDeDieu,
     assignedBy: adminDeDieu,
     assignee: [adminDeDieu, adminCayTrong],
@@ -31,8 +38,8 @@ const incidents = [
     description:
       "Hệ thống đê điều góp phần rất lớn trong an toàn phòng lũ, đảm bảo an toàn dân sinh. Tuy nhiên, do chưa có quy hoạch ứng phó bài bản nên vẫn xảy ra tình trạng chạy theo sự cố, hỏng đến đâu, vá đến đấy. Giải pháp nào để đảm bảo an toàn đê điều khi mùa bão lũ sắp dồn dập?",
     location: "đê Hữu Đáy (Mỹ Đức)",
-    status: 0,
-    level: 0,
+    status: inProgressStatus,
+    level: normalLevel,
     createdBy: adminDeDieu,
     assignedBy: adminDeDieu,
     assignee: [adminDeDieu],
@@ -45,8 +52,8 @@ const incidents = [
     description:
       "TTO - Khoảng 15h30 ngày 15-4, người dân sống trên đường số 3, phường Hiệp Bình Phước, quận Thủ Đức, TP.HCM nghe tiếng nổ phát ra từ trạm biến áp Hiệp Bình Phước và liền sau đó nhiều khu vực bị cúp điện.",
     location: "Đường số 3, phường Hiệp Bình Phước, quận Thủ Đức, TP.HCM",
-    status: 1,
-    level: 1,
+    status: resolvedStatus,
+    level: urgencyLevel,
     createdBy: adminLuoiDien,
     dueDate: "2020-09-30",
     loggedTime: 7200,
@@ -57,8 +64,8 @@ const incidents = [
     description:
       "Ngày 17.9, Công an H.Hòa Vang (TP.Đà Nẵng) xác định nguyên nhân vụ cháy rừng ở xã Hòa Nhơn (H.Hòa Vang) hôm 15.9 là do người dân đốt thực bì gây cháy lan.",
     location: "Thôn Phước Thiện - Phước Hậu (xã Hòa Nhơn, H.Hòa Vang)",
-    status: 1,
-    level: 1,
+    status: openStatus,
+    level: normalLevel,
     createdBy: adminChayRung,
     dueDate: "2020-12-30",
     loggedTime: 7200,
@@ -70,8 +77,8 @@ const incidents = [
     description:
       "Thời gian qua, do ảnh hưởng của biến đổi khí hậu dẫn đến diễn biến thời tiết thất thường khiến nhiều diện tích rừng Việt Nam bị thiêu rụi và đe dọa nghiêm trọng đến thảm thực vật rừng, cũng như ảnh hưởng tới phát triển kinh tế - xã hội, môi trường, khí hậu… Do đó, cháy rừng đang trở thành vấn đề nghiêm trọng của quốc gia cần có sự chung tay vào cuộc mạnh mẽ hơn nữa của toàn bộ hệ thống chính trị và ý thức của người dân trong bảo vệ và phát triển rừng Việt Nam.",
     location: "Việt Nam",
-    status: 1,
-    level: 1,
+    status: openStatus,
+    level: urgencyLevel,
     createdBy: adminChayRung,
     dueDate: "2020-12-30",
     loggedTime: 7200,
@@ -82,8 +89,8 @@ const incidents = [
     description:
       "Thời gian qua, do ảnh hưởng của biến đổi khí hậu dẫn đến diễn biến thời tiết thất thường khiến nhiều diện tích rừng Việt Nam bị thiêu rụi và đe dọa nghiêm trọng đến thảm thực vật rừng, cũng như ảnh hưởng tới phát triển kinh tế - xã hội, môi trường, khí hậu… Do đó, cháy rừng đang trở thành vấn đề nghiêm trọng của quốc gia cần có sự chung tay vào cuộc mạnh mẽ hơn nữa của toàn bộ hệ thống chính trị và ý thức của người dân trong bảo vệ và phát triển rừng Việt Nam.",
     location: "Việt Nam",
-    status: 1,
-    level: 1,
+    status: inProgressStatus,
+    level: urgencyLevel,
     createdBy: adminChayRung,
     assignedBy: adminChayRung,
     assignee: [adminChayRung],
@@ -97,8 +104,8 @@ const incidents = [
     description:
       "GS.TS Vương Văn Quỳnh, nguyên viện trưởng Viện sinh thái rừng và môi trường - Trường ĐH Lâm nghiệp, phân tích: 1 tỉ cây xanh nếu quy ra diện tích tương đương 300.000 - 400.000ha rừng trồng. Đây là diện tích không quá lớn nếu kết hợp cả trồng rừng tập trung cũng như trồng cây phân tán. ",
     location: "Việt Nam",
-    status: 1,
-    level: 1,
+    status: resolvedStatus,
+    level: normalLevel,
     createdBy: adminChayRung,
     dueDate: "2020-12-30",
     loggedTime: 7200,
@@ -110,8 +117,8 @@ const incidents = [
     description:
       "TTO - Sự việc cây xanh gãy đổ gây chết người gần đây lại dấy lên sự bức xúc, lo lắng của nhiều người dân, nhất là khi những 'cái chết từ trên trời rơi xuống' không phải lần đầu tiên và trách nhiệm đối với nhân mạng chưa được giải quyết tương ứng.",
     location: "Việt Nam",
-    status: 1,
-    level: 1,
+    status: openStatus,
+    level: urgencyLevel,
     createdBy: adminChayRung,
     dueDate: "2020-12-30",
     loggedTime: 7200,
