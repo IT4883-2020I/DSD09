@@ -1,5 +1,25 @@
 import { check } from "express-validator";
 
+const validateCreateIncident = () => {
+  return [
+    check("name", "Name is required").not().isEmpty(),
+    check("description", "Description is required").not().isEmpty(),
+    check("location", "Location is required").not().isEmpty(),
+    check("level", "Level must be numeric").isNumeric().optional({ nullable: true }),
+    check("dueDate", "Invalid Due date").isISO8601("yyyy-mm-dd").optional({ nullable: true }),
+    check("type", "Type is required").not().isEmpty(),
+    check("type", "Type must be in LUOI_DIEN, CAY_TRONG, CHAY_RUNG, DE_DIEU").custom((a) => {
+      return ["LUOI_DIEN", "CAY_TRONG", "CHAY_RUNG", "DE_DIEU"].includes(a);
+    }),
+    check("images", "Images must be Array of image url drive")
+      .isArray()
+      .optional({ nullable: true }),
+    check("videos", "Videos must be Array of video url drive")
+      .isArray()
+      .optional({ nullable: true })
+  ];
+};
+
 const validateGetIncidentsList = () => {
   return [
     check("offset", "Page must be numeric > 0").isInt({ min: 0 }).optional({ nullable: true }),
@@ -47,4 +67,4 @@ const validateUpdateIncident = () => {
   ];
 };
 
-export { validateGetIncidentsList, validateUpdateIncident };
+export { validateGetIncidentsList, validateUpdateIncident, validateCreateIncident };

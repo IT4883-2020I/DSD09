@@ -3,11 +3,17 @@ const router = express.Router();
 import {
   getIncidents,
   getIncidentById,
-  updateIncident
+  updateIncident,
+  createIncident
 } from "../controllers/incidentController.js";
 import { protect, hasAuthorIncident } from "../middleware/authMiddleware.js";
-import { validateGetIncidentsList, validateUpdateIncident } from "../validator/incidents.js";
+import {
+  validateGetIncidentsList,
+  validateUpdateIncident,
+  validateCreateIncident
+} from "../validator/incidents.js";
 
+router.post("/", protect, hasAuthorIncident, validateCreateIncident(), createIncident);
 router.post("/search", protect, hasAuthorIncident, validateGetIncidentsList(), getIncidents);
 router
   .route("/:id")

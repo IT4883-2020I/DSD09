@@ -39,6 +39,37 @@
         "responses": {}
       }
     },
+
+    "POST /incidents": {
+      "post": {
+        "tags": ["incident"],
+        "description": "API tạo mới sự cố",
+        "parameters": [
+          {
+            "name": "api-token",
+            "description": "API Token lấy theo nhóm 3",
+            "in": "header",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "project-type",
+            "description": "Project type lấy theo nhóm 3",
+            "in": "header",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/CreateIncident"
+            }
+          }
+        ],
+        "responses": {}
+      }
+    },
     "GET /incidents/{id}": {
       "get": {
         "tags": ["incident"],
@@ -556,6 +587,50 @@
         "type": {
           "type": "string",
           "example": "HOA_HOAN"
+        }
+      }
+    },
+    "CreateIncident": {
+      "properties": {
+        "name": {
+          "type": "string",
+          "example": "Tạo mới sự cố name",
+          "required": true
+        },
+        "description": {
+          "type": "string",
+          "example": "Tạo mới sự cố description",
+          "required": true
+        },
+        "location": {
+          "type": "string",
+          "example": "Hà Nội",
+          "required": true
+        },
+        "level": {
+          "type": "number",
+          "example": 0,
+          "description": "Nếu không truyền thì sẽ mặc định lấy giá trị 0"
+        },
+        "dueDate": {
+          "type": "string",
+          "example": "2020-10-30"
+        },
+        "type": {
+          "type": "string",
+          "description": "1 trong 4 giá trị LUOI_DIEN, CAY_TRONG, DE_DIEU, CHAY_RUNG",
+          "example": "LUOI_DIEN",
+          "required": true
+        },
+        "images": {
+          "type": "array",
+          "description": "Mảng các link ảnh drive upload luan-drive.cf",
+          "example": ["https://drive.google.com/uc?id=11XCIKGHhR-ycjsBYuK9sw9jpnLotQFxF"]
+        },
+        "videos": {
+          "type": "array",
+          "description": "Mảng các link video drive upload luan-drive.cf",
+          "example": []
         }
       }
     },

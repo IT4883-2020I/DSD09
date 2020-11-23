@@ -6,6 +6,40 @@ import IncidentLevel from "../models/incidentLevelModel.js";
 import { validationResult } from "express-validator";
 import _ from "lodash";
 
+const createIncident = asyncHandler(async (req, res) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    res.status(422).json({ errors: errors.array() });
+    return;
+  }
+  let incident = req.body;
+  incident.images = incident.images.map((image) => {
+    return { url: image };
+  });
+  incident.videos = incident.videos.map((image) => {
+    return { url: image };
+  });
+  let incidentTypeId = await IncidentType.findOne({ type: req.body.type }, "_id").exec();
+  incident.type = incidentTypeId;
+
+  let incidentStatusId = await IncidentStatus.findOne({ code: 0 }, "_id").exec();
+  incident.status = incidentStatusId;
+
+  const level = req.body.level || 0;
+  let incidentLevelId = await IncidentLevel.findOne({ code: level }, "_id").exec();
+  incident.level = incidentLevelId;
+  incident.createdBy = req.user.id;
+
+  if (req.body.dueDate) {
+    incident.dueDate = new Date(req.body.dueDate);
+  }
+
+  let createIncident = new Incident(incident);
+  let newIncident = await createIncident.save();
+  newIncident = await findIncidentById(newIncident._id);
+  return res.json(newIncident);
+});
+
 const updateIncident = asyncHandler(async (req, res) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
@@ -24,7 +58,10 @@ const updateIncident = asyncHandler(async (req, res) => {
   if (payload.name) incident.name = payload.name;
   if (payload.description) incident.description = payload.description;
   if (payload.dueDate) incident.dueDate = new Date(payload.dueDate);
-  if (payload.assignee) incident.assignee = payload.assignee;
+  if (payload.assignee) {
+    incident.assignee = payload.assignee;
+    incident.assignedBy = req.user.id;
+  }
   if (payload.type) {
     const incidentTypeId = await IncidentType.findOne({ type: payload.type }, "_id").exec();
     incident.type = incidentTypeId;
@@ -127,4 +164,4 @@ const findIncidentById = async (id) => {
   return incident;
 };
 
-export { getIncidents, getIncidentById, updateIncident };
+export { getIncidents, getIncidentById, updateIncident, createIncident };
