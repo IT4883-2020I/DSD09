@@ -1,6 +1,13 @@
 import asyncHandler from "express-async-handler";
 import axios from "axios";
-import ROLE from "./roles.json";
+
+const ROLE = {
+  ADMIN: "ADMIN",
+  MANAGER: "MANAGER",
+  SUPERVISOR: "SUPERVISOR",
+  DRONE_STAFF: "DRONE_STAFF",
+  INCIDENT_STAFF: "INCIDENT_STAFF"
+};
 
 const protect = asyncHandler(async (req, res, next) => {
   const apiToken = req.headers["api-token"] || "";
