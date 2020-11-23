@@ -8,7 +8,7 @@
   "basePath": "/api",
   "produces": ["application/json"],
   "paths": {
-    "POST /incidents/search": {
+    "/incidents/search": {
       "post": {
         "tags": ["incident"],
         "description": "API lấy danh sách sự cố",
@@ -39,8 +39,7 @@
         "responses": {}
       }
     },
-
-    "POST /incidents": {
+    "/incidents": {
       "post": {
         "tags": ["incident"],
         "description": "API tạo mới sự cố",
@@ -70,7 +69,7 @@
         "responses": {}
       }
     },
-    "GET /incidents/{id}": {
+    "/incidents/{id}": {
       "get": {
         "tags": ["incident"],
         "description": "API lấy sự cố theo ID",
@@ -96,9 +95,7 @@
           }
         ],
         "responses": {}
-      }
-    },
-    "PUT /incidents/{id}": {
+      },
       "put": {
         "tags": ["incident"],
         "description": "API cập nhật thông tin sự cố theo ID",
@@ -134,7 +131,7 @@
         "responses": {}
       }
     },
-    "GET /incident-types": {
+    "/incident-types": {
       "get": {
         "tags": ["incident type"],
         "description": "API lấy danh sách loại sự cố",
@@ -153,9 +150,7 @@
           }
         ],
         "responses": {}
-      }
-    },
-    "POST /incident-types": {
+      },
       "post": {
         "tags": ["incident type"],
         "description": "API tạo mới loại sự cố",
@@ -183,7 +178,7 @@
         "responses": {}
       }
     },
-    "PUT /incident-types/{id}": {
+    "/incident-types/{id}": {
       "put": {
         "tags": ["incident type"],
         "description": "API update loại sự cố",
@@ -216,9 +211,7 @@
           }
         ],
         "responses": {}
-      }
-    },
-    "DELETE /incident-types/{id}": {
+      },
       "delete": {
         "tags": ["incident type"],
         "description": "API xóa loại sự cố",
@@ -246,7 +239,7 @@
         "responses": {}
       }
     },
-    "GET /incident-status": {
+    "/incident-status": {
       "get": {
         "tags": ["incident status"],
         "description": "API lấy danh sách trạng thái sự cố",
@@ -265,9 +258,7 @@
           }
         ],
         "responses": {}
-      }
-    },
-    "POST /incident-status": {
+      },
       "post": {
         "tags": ["incident status"],
         "description": "API tạo mới trạng thái sự cố",
@@ -295,7 +286,7 @@
         "responses": {}
       }
     },
-    "PUT /incident-status/{id}": {
+    "/incident-status/{id}": {
       "put": {
         "tags": ["incident status"],
         "description": "API update trạng thái sự cố",
@@ -328,9 +319,7 @@
           }
         ],
         "responses": {}
-      }
-    },
-    "DELETE /incident-status/{id}": {
+      },
       "delete": {
         "tags": ["incident status"],
         "description": "API xóa trạng thái sự cố",
@@ -358,7 +347,7 @@
         "responses": {}
       }
     },
-    "GET /incident-levels": {
+    "/incident-levels": {
       "get": {
         "tags": ["incident levels"],
         "description": "API lấy danh sách mức độ của sự cố",
@@ -377,9 +366,8 @@
           }
         ],
         "responses": {}
-      }
-    },
-    "POST /incident-levels": {
+      },
+
       "post": {
         "tags": ["incident levels"],
         "description": "API tạo mới mức độ của sự cố",
@@ -407,7 +395,7 @@
         "responses": {}
       }
     },
-    "PUT /incident-levels/{id}": {
+    "/incident-levels/{id}": {
       "put": {
         "tags": ["incident levels"],
         "description": "API update bản ghi mức độ của sự cố",
@@ -440,9 +428,7 @@
           }
         ],
         "responses": {}
-      }
-    },
-    "DELETE /incident-levels/{id}": {
+      },
       "delete": {
         "tags": ["incident levels"],
         "description": "API xóa bản ghi mức độ của sự cố",
