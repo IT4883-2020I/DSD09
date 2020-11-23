@@ -108,24 +108,26 @@ const getIncidents = asyncHandler(async (req, res) => {
     return;
   }
   const findQuery = buildFindQuery(req.body);
-  const incidents = await Incident.find(findQuery)
-    .limit(req.body.limit)
-    .skip(req.body.offset)
+  let incidents = await Incident.find(findQuery)
+    // .limit(req.body.limit)
+    // .skip(req.body.offset)
     .sort({ updatedAt: -1 })
     .populate("type")
     .populate("status")
     .populate("level")
     .exec();
   const { status, level, assignee } = req.body;
-  res.json(
-    incidents.filter((incident) => {
-      if (level !== undefined && level !== incident.level.code) return false;
-      if (status !== undefined && status !== incident.status.code) return false;
-      if (assignee && assignee.length > 0 && _.difference(assignee, incident.assignee).length > 0)
-        return false;
-      return incident.type.type === req.user.type;
-    })
-  );
+  incidents = incidents.filter((incident) => {
+    if (level !== undefined && level !== incident.level.code) return false;
+    if (status !== undefined && status !== incident.status.code) return false;
+    if (assignee && assignee.length > 0 && _.difference(assignee, incident.assignee).length > 0)
+      return false;
+    return incident.type.type === req.user.type;
+  });
+  const limit = req.body.limit || 20;
+  const offset = req.body.offset || 0;
+  let paginationIncidents = incidents.slice(offset, offset + limit);
+  res.json({ incidents: paginationIncidents, total: incidents.length });
 });
 
 const getIncidentById = asyncHandler(async (req, res) => {
