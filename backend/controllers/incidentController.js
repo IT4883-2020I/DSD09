@@ -139,7 +139,7 @@ const getIncidentById = asyncHandler(async (req, res) => {
     }
     res.json(incident);
   } catch (e) {
-    res.json({ message: "Incident not found" });
+    res.status(404).json({ message: "Incident not found" });
   }
 });
 
