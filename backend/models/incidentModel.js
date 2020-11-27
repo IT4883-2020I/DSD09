@@ -45,16 +45,8 @@ const incidentModel = mongoose.Schema(
       type: Schema.Types.ObjectId,
       ref: IncidentType
     },
-    images: [
-      {
-        url: String
-      }
-    ],
-    videos: [
-      {
-        url: String
-      }
-    ]
+    images: [Object],
+    videos: [Object]
   },
   {
     timestamps: true

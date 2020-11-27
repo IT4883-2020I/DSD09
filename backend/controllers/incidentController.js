@@ -13,12 +13,12 @@ const createIncident = asyncHandler(async (req, res) => {
     return;
   }
   let incident = req.body;
-  incident.images = incident.images.map((image) => {
-    return { url: image };
-  });
-  incident.videos = incident.videos.map((image) => {
-    return { url: image };
-  });
+  // incident.images = incident.images.map((image) => {
+  //   return { url: image };
+  // });
+  // incident.videos = incident.videos.map((image) => {
+  //   return { url: image };
+  // });
   let incidentTypeId = await IncidentType.findOne({ type: req.body.type }, "_id").exec();
   incident.type = incidentTypeId;
 
@@ -74,27 +74,21 @@ const updateIncident = asyncHandler(async (req, res) => {
     const incidentLevelId = await IncidentLevel.findOne({ code: payload.level }, "_id").exec();
     incident.level = incidentLevelId;
   }
-  if (payload.addImageIds && payload.addImageIds.length > 0) {
-    payload.addImageIds.forEach((element) => {
-      incident.images.push({ url: "https://drive.google.com/uc?id=" + element });
+  if (payload.addImages && payload.addImages.length > 0) {
+    payload.addImages.forEach((element) => {
+      incident.images.push(element);
     });
   }
-  if (payload.addVideoIds && payload.addVideoIds.length > 0) {
-    payload.addImageIds.forEach((element) => {
-      incident.videos.push({ url: "https://drive.google.com/uc?id=" + element });
+  if (payload.addVideos && payload.addVideos.length > 0) {
+    payload.addVideos.forEach((element) => {
+      incident.videos.push(element);
     });
   }
   if (payload.deleteImageIds && payload.deleteImageIds.length > 0) {
-    incident.images = incident.images.filter((image) => {
-      let imageId = image.url.split("=")[1];
-      return !payload.deleteImageIds.includes(imageId);
-    });
+    incident.images = incident.images.filter((image) => !payload.deleteImageIds.includes(image.id));
   }
   if (payload.deleteVideoIds && payload.deleteVideoIds.length > 0) {
-    incident.videos = incident.videos.filter((video) => {
-      let videoId = video.url.split("=")[1];
-      return !payload.deleteVideoIds.includes(videoId);
-    });
+    incident.videos = incident.videos.filter((video) => !payload.deleteVideoIds.includes(video.id));
   }
   await incident.save();
   const newIncident = await findIncidentById(req.params.id);

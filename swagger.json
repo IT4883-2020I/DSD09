@@ -542,25 +542,34 @@
           "description": "Level code của sự cố (lấy thông qua API /incident-levels)",
           "example": 0
         },
-        "addImageIds": {
+        "addImages": {
           "type": "array",
-          "description": "Mảng các image_id của ảnh cần thêm sau khi dùng API của Luân để upload ảnh/video lên drive",
-          "example": "11XCIKGHhR-ycjsBYuK9sw9jpnLotQFxF"
+          "description": "Mảng các object ảnh drive upload luan-drive.cf theo quy tắc của nhóm Ảnh/Video",
+          "example": [
+            {
+              "id": 1,
+              "url": "https://drive.google.com/uc?id=11XCIKGHhR-ycjsBYuK9sw9jpnLotQFxF"
+            },
+            {
+              "id": 2,
+              "url": "https://drive.google.com/uc?id=11XCIKGHhR-ycjsBYuK9sw9jp4LotQFxF"
+            }
+          ]
         },
         "deleteImageIds": {
           "type": "array",
-          "description": "Mảng các image_id của ảnh cần xóa sau khi dùng API của Luân để upload ảnh/video lên drive",
-          "example": "11XCIKGHhR-ycjsBYuK9sw9jpnLotQFxF"
+          "description": "Mảng các id của ảnh cần xóa",
+          "example": [3, 4]
         },
-        "addVideoIds": {
+        "addVideos": {
           "type": "array",
-          "description": "Mảng các image_id của ảnh cần thêm sau khi dùng API của Luân để upload ảnh/video lên drive",
-          "example": "11XCIKGHhR-ycjsBYuK9sw9jpnLotQFxF"
+          "description": "Mảng các object video drive upload luan-drive.cf theo quy tắc của nhóm Ảnh/Video",
+          "example": []
         },
         "deleteVideoIds": {
           "type": "array",
-          "description": "Mảng các image_id của ảnh cần xóa sau khi dùng API của Luân để upload ảnh/video lên drive",
-          "example": "11XCIKGHhR-ycjsBYuK9sw9jpnLotQFxF"
+          "description": "Mảng các id của video cần xóa",
+          "example": []
         }
       }
     },
@@ -610,12 +619,21 @@
         },
         "images": {
           "type": "array",
-          "description": "Mảng các link ảnh drive upload luan-drive.cf",
-          "example": ["https://drive.google.com/uc?id=11XCIKGHhR-ycjsBYuK9sw9jpnLotQFxF"]
+          "description": "Mảng các object ảnh drive upload luan-drive.cf theo quy tắc của nhóm Ảnh/Video",
+          "example": [
+            {
+              "id": 1,
+              "url": "https://drive.google.com/uc?id=11XCIKGHhR-ycjsBYuK9sw9jpnLotQFxF"
+            },
+            {
+              "id": 2,
+              "url": "https://drive.google.com/uc?id=11XCIKGHhR-ycjsBYuK9sw9jp4LotQFxF"
+            }
+          ]
         },
         "videos": {
           "type": "array",
-          "description": "Mảng các link video drive upload luan-drive.cf",
+          "description": "Mảng các object video drive upload luan-drive.cf theo quy tắc của nhóm Ảnh/Video",
           "example": []
         }
       }
