@@ -6,18 +6,22 @@ import {
   updateIncident,
   createIncident
 } from "../controllers/incidentController.js";
-import { protect, hasAuthorIncident } from "../middleware/authMiddleware.js";
+import {
+  protect,
+  hasAuthorIncidents,
+  checkPermissionIncidentDetail
+} from "../middleware/authMiddleware.js";
 import {
   validateGetIncidentsList,
   validateUpdateIncident,
   validateCreateIncident
 } from "../validator/incidents.js";
 
-router.post("/", protect, hasAuthorIncident, validateCreateIncident(), createIncident);
-router.post("/search", protect, hasAuthorIncident, validateGetIncidentsList(), getIncidents);
+router.post("/", protect, hasAuthorIncidents, validateCreateIncident(), createIncident);
+router.post("/search", protect, hasAuthorIncidents, validateGetIncidentsList(), getIncidents);
 router
   .route("/:id")
-  .get(protect, hasAuthorIncident, getIncidentById)
-  .put(protect, hasAuthorIncident, validateUpdateIncident(), updateIncident);
+  .get(protect, checkPermissionIncidentDetail, getIncidentById)
+  .put(protect, checkPermissionIncidentDetail, validateUpdateIncident(), updateIncident);
 
 export default router;

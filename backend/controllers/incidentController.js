@@ -5,6 +5,15 @@ import IncidentStatus from "../models/incidentStatusModel.js";
 import IncidentLevel from "../models/incidentLevelModel.js";
 import { validationResult } from "express-validator";
 import _ from "lodash";
+import axios from "axios";
+
+const ROLE = {
+  ADMIN: "ADMIN",
+  MANAGER: "MANAGER",
+  SUPERVISOR: "SUPERVISOR",
+  DRONE_STAFF: "DRONE_STAFF",
+  INCIDENT_STAFF: "INCIDENT_STAFF"
+};
 
 const createIncident = asyncHandler(async (req, res) => {
   const errors = validationResult(req);
@@ -110,12 +119,21 @@ const getIncidents = asyncHandler(async (req, res) => {
     .populate("status")
     .populate("level")
     .exec();
-  const { status, level, assignee } = req.body;
+
+  const apiToken = req.headers["api-token"] || "";
+  const projectType = req.headers["project-type"] || "";
+  const assignedIncidentIds = await getAssignedIncidentIds(apiToken, projectType);
+  console.log(assignedIncidentIds);
+  const { status, level } = req.body;
   incidents = incidents.filter((incident) => {
     if (level !== undefined && level !== incident.level.code) return false;
     if (status !== undefined && status !== incident.status.code) return false;
-    if (assignee && assignee.length > 0 && _.difference(assignee, incident.assignee).length > 0)
-      return false;
+    // if (assignee && assignee.length > 0 && _.difference(assignee, incident.assignee).length > 0)
+    //   return false;
+    if (req.user.role === ROLE.DRONE_STAFF) return false;
+    if (req.user.role === ROLE.INCIDENT_STAFF) {
+      return assignedIncidentIds.includes(incident._id);
+    }
     return incident.type.type === req.user.type;
   });
   const limit = req.body.limit || 20;
@@ -158,6 +176,20 @@ const findIncidentById = async (id) => {
     .populate("level")
     .exec();
   return incident;
+};
+
+const getAssignedIncidentIds = async (apiToken, projectType) => {
+  const tasks = await axios.get("https://distributed-dsd08.herokuapp.com/api/external/user-tasks", {
+    headers: {
+      "api-token": apiToken,
+      "project-type": projectType
+    }
+  });
+  const { current_task, pending_tasks, done_tasks } = tasks.data;
+  const incidentIds = [current_task.incident_id]
+    .concat(pending_tasks.map((item) => item.incident_id))
+    .concat(done_tasks.map((item) => item.incident_id));
+  return incidentIds;
 };
 
 export { getIncidents, getIncidentById, updateIncident, createIncident };
