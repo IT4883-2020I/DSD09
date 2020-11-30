@@ -100,7 +100,7 @@ const IncidentEdit = (props) => {
           <Descriptions.Item label="Ngày tạo">{moment(incident.createdAt).format('YYYY-MM-DD')}</Descriptions.Item>
           <Descriptions.Item label="Loại sự cố">{_.get(incident, 'type.name', '')}</Descriptions.Item>
           <Descriptions.Item label="Trạng thái">
-            <Tag color={colorLevel(_.get(incident, 'status.code', null))}>
+            <Tag color={`${colorLevel(_.get(incident, 'status.code', null))}`}>
               {_.get(incident, 'status.name', '')}
             </Tag>
           </Descriptions.Item>

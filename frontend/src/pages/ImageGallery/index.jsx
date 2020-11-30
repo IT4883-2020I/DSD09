@@ -159,8 +159,6 @@ const ImageGalley = (props) => {
             destroyOnClose={true}
         >
             <Form
-                labelCol={{ span: 4 }}
-                wrapperCol={{ span: 14 }}
                 layout="vertical"
                 initialValues={{}}
                 form={form}

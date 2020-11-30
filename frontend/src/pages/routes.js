@@ -4,6 +4,7 @@ import UserIndex from "./User/index";
 import Dashboard from "./Dashboard";
 import Incident from "./Incidient";
 import ImageGallery from "./ImageGallery";
+import VideoGallery from "./VideoGallery";
 import auth from "@utils/auth";
 import IncidentEdit from "./Incidient/edit";
 export const routes = [
@@ -54,6 +55,11 @@ export const routes = [
   {
     path: "/imageGallery",
     component: () => <ImageGallery />,
+    exact: true
+  },
+  {
+    path: "/videoGallery",
+    component: () => <VideoGallery />,
     exact: true
   },
   {

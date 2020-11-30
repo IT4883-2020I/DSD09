@@ -45,9 +45,15 @@ export const sidebarMenu = [
   },
   {
     key: 'imageGallery',
-    heading: 'Hình ảnh và video',
+    heading: 'Hình ảnh',
     icon: 'fas fa-images',
     route: '/imageGallery',
+  },
+  {
+    key: 'videoGallery',
+    heading: 'Video',
+    icon: 'fas fa-images',
+    route: '/videoGallery',
   },
   {
     key: 'Problems',
