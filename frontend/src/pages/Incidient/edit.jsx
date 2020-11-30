@@ -9,8 +9,33 @@ import to from "await-to-js";
 import incidentService from "@services/incidentService";
 import incidentLevelService from "@services/incidentLevelService";
 import incidentStatusService from "@services/incidentStatusService";
+import Gallery from "react-grid-gallery";
 const {Option} = Select
+const IMAGES =
+    [
+      {
+        src: "https://c2.staticflickr.com/9/8817/28973449265_07e3aa5d2e_b.jpg",
+        thumbnail: "https://c2.staticflickr.com/9/8817/28973449265_07e3aa5d2e_n.jpg",
+        thumbnailWidth: 320,
+        thumbnailHeight: 174,
+        // isSelected: true,
+        caption: "After Rain (Jeshu John - designerspics.com)"
+      },
+      {
+        src: "https://c2.staticflickr.com/9/8356/28897120681_3b2c0f43e0_b.jpg",
+        thumbnail: "https://c2.staticflickr.com/9/8356/28897120681_3b2c0f43e0_n.jpg",
+        thumbnailWidth: 320,
+        thumbnailHeight: 212,
+        tags: [{value: "Ocean", title: "Ocean"}, {value: "People", title: "People"}],
+        caption: "Boats (Jeshu John - designerspics.com)"
+      },
 
+      {
+        src: "https://c4.staticflickr.com/9/8887/28897124891_98c4fdd82b_b.jpg",
+        thumbnail: "https://c4.staticflickr.com/9/8887/28897124891_98c4fdd82b_n.jpg",
+        thumbnailWidth: 320,
+        thumbnailHeight: 212
+      }]
 const IncidentEdit = (props) => {
   let { id } = useParams();
   const [incident, setIncident] = useState({})
@@ -66,10 +91,13 @@ const IncidentEdit = (props) => {
       <div>
         <Descriptions
             bordered
+            layout="vertical"
             title="Chi tiết sự cố"
             extra={<Button type="primary">Xử lý sự cố</Button>}
         >
           <Descriptions.Item label="Tên sự cố">{incident.name}</Descriptions.Item>
+          <Descriptions.Item label="Hạn dự kiến">{moment(incident.dueDate).format('YYYY-MM-DD')}</Descriptions.Item>
+          <Descriptions.Item label="Ngày tạo">{moment(incident.createdAt).format('YYYY-MM-DD')}</Descriptions.Item>
           <Descriptions.Item label="Loại sự cố">{_.get(incident, 'type.name', '')}</Descriptions.Item>
           <Descriptions.Item label="Trạng thái">
             <Tag color={colorLevel(_.get(incident, 'status.code', null))}>
@@ -81,39 +109,27 @@ const IncidentEdit = (props) => {
               {_.get(incident, 'level.name', '')}
             </Tag>
           </Descriptions.Item>
-          <Descriptions.Item label="Hạn dự kiến">{moment(incident.dueDate).format('YYYY-MM-DD')}</Descriptions.Item>
-          <Descriptions.Item label="Ngày tạo">{moment(incident.createdAt).format('YYYY-MM-DD')}</Descriptions.Item>
-          <Descriptions.Item label="Mô tả">
+
+          <Descriptions.Item label="Mô tả" span={3}>
             {incident.description}
           </Descriptions.Item>
-          <Descriptions.Item label="Vị trí">
-            {incident.location}
+          <Descriptions.Item label="Ảnh" span={2}>
+            <Gallery
+                images={IMAGES}
+                showLightboxThumbnails={true}
+                enableImageSelection={false}
+            />
           </Descriptions.Item>
-          <Descriptions.Item label="Ảnh">
+          <Descriptions.Item label="Vị trí" span={1}>
             {incident.location}
+            <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3725.5756715163598!2d106.1600463149287!3d20.96954899517287!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x313598a919dd3821%3A0x5ba5e686fd49047!2zVHLhuqFtIMSRaeG7h24gY2FvIHRo4bq_IE5n4buNYyBMacOqbg!5e0!3m2!1sen!2s!4v1605663218115!5m2!1sen!2s"
+                width="100%" height="450" frameBorder="0" style={{border: 0}} allowFullScreen="" aria-hidden="false"
+                tabIndex="0"></iframe>
           </Descriptions.Item>
-        </Descriptions>
-        {/*<Row gutter={16} justify={'space-around'}>*/}
-        {/*  <Col col={18}>*/}
-        {/*    <Form layout={'vertical'}>*/}
-        {/*      <Form.Item label={'Tên sự cố'}><Input value={'Cây đổ vào Trạm điện cao thế Ngọc Liên'}></Input></Form.Item>*/}
-        {/*      <Form.Item label={'Mô tả'}><Input.TextArea rows={4} value={'Lúc 14h55’ ngày 15/4, tại khoảng cột 435/37, đường dây 471E58 của thôn Đắc Tà Vầng, xã Đắc Tôi, huyện Nam Giang, diều của người dân quanh khu vực thả lên bị đứt dây và vướng vào lưới điện, gây sự cố đường dây cấp điện một phần khu vực huyện.'}></Input.TextArea></Form.Item>*/}
-        {/*      <Form.Item label={'Ảnh'}><Images/></Form.Item>*/}
-        {/*      <Form.Item label={'Vị trí'}><Input value={'Trạm điện cao thế Ngọc Liên'}/></Form.Item>*/}
-        {/*      <Form.Item>*/}
-        {/*        <iframe*/}
-        {/*            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3725.5756715163598!2d106.1600463149287!3d20.96954899517287!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x313598a919dd3821%3A0x5ba5e686fd49047!2zVHLhuqFtIMSRaeG7h24gY2FvIHRo4bq_IE5n4buNYyBMacOqbg!5e0!3m2!1sen!2s!4v1605663218115!5m2!1sen!2s"*/}
-        {/*            width="100%" height="450" frameBorder="0" style={{border: 0}} allowFullScreen="" aria-hidden="false"*/}
-        {/*            tabIndex="0"></iframe></Form.Item>*/}
 
-        {/*    </Form>*/}
-        {/*  </Col>*/}
-        {/*  <Col col={6}>*/}
-        {/*    <Tag>Lưới điện</Tag>*/}
-        {/*    <Tag color="processing">In Process</Tag>*/}
-        {/*    <Tag color="#f50">Urgency</Tag>*/}
-        {/*    </Col>*/}
-        {/*</Row>*/}
+        </Descriptions>
+
 
       </div>
   )
