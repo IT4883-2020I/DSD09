@@ -48,6 +48,8 @@ export const routes = [
   {
     path: "/incidents/:id",
     component: () => <IncidentEdit />,
+    exact: true
+
   },
   {
     path: "/imageGallery",
