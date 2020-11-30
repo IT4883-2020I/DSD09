@@ -469,11 +469,6 @@
           "type": "string",
           "example": "Hà Nội"
         },
-        "assignee": {
-          "type": "array",
-          "description": "Mảng các user id",
-          "example": [4, 5]
-        },
         "dueDateMin": {
           "type": "string",
           "example": "2020-09-30"
