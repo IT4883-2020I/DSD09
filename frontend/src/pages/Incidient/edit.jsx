@@ -3,10 +3,10 @@ import {Tag, Form, Col, Select, DatePicker, Input, Row, Button} from "antd";
 import useBaseHook from "@hooks/BaseHooks";
 import moment from'moment'
 import Images from "../../components/Images";
-
+import _ from 'lodash'
 const {Option} = Select
 
-const IncidentEdit = () => {
+const IncidentEdit = (props) => {
   const users = [
     {value: '1', label: 'Dung Nguyen'},
     {value: '2', label: 'Viet Anh'},

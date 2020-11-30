@@ -3,6 +3,7 @@ import { Switch, Route, Redirect } from "react-router-dom";
 import UserIndex from "./User/index";
 import Dashboard from "./Dashboard";
 import Incident from "./Incidient";
+import ImageGallery from "./ImageGallery";
 import auth from "@utils/auth";
 import IncidentEdit from "./Incidient/edit";
 export const routes = [
@@ -45,13 +46,12 @@ export const routes = [
     exact: true
   },
   {
-    path: "/incidents",
-    component: () => <Incident />,
-    exact: true
+    path: "/incidents/:id",
+    component: () => <IncidentEdit />,
   },
   {
-    path: "/incidents/1",
-    component: () => <IncidentEdit />,
+    path: "/imageGallery",
+    component: () => <ImageGallery />,
     exact: true
   },
   {

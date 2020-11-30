@@ -16,13 +16,13 @@ const LoginForm = ({ history }) => {
     auth().logout();
   }, []);
   const onFinish = async (values) => {
-    let [error, user = {}] = await to(userService().login(values));
-    if (error) {
-      notify(error.message, "", "error");
+    let res = await to(userService().login(values));
+    if (res.status === 'fail') {
+      notify("Đăng nhập thất bại", "", "error");
       return;
     }
     notify("Đăng nhập thành công", "", "success");
-    auth().setAuth(user);
+    auth().setAuth(res.result);
     window.location.href = "/";
   };
 

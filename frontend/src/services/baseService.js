@@ -51,6 +51,8 @@ class BaseService {
             method: method,
             headers: {
                 'Content-Type': 'application/json',
+                'project-type': 'LUOI_DIEN',
+                'api-token': '4c901bcdba9f440a2a7c31c0bcbd78ec',
             },
             ...options
         };

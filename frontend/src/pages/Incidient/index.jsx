@@ -1,77 +1,15 @@
 import React, { useState, useEffect } from "react";
 import to from "await-to-js";
 import userService from "@services/userService";
-import { Table, Tag } from "antd";
+import {message, Table, Tag} from "antd";
 import useBaseHook from "@hooks/BaseHooks";
+import incidentService from "@services/incidentService";
+import incidentLevelService from "@services/incidentLevelService";
+import incidentStatusService from "@services/incidentStatusService";
+import moment from "moment";
 
-const columns = [
-  {
-    name: "Tên sự cố",
-    dataIndex: "title",
-    key: "title",
-    render: (text) => <a href={"/incidents/1"}>{text}</a>
-  },
-  // {
-  //   title: "Mô tả",
-  //   dataIndex: "description",
-  //   key: "description",
-  // },
-  {
-    title: "Người phân công",
-    dataIndex: "reporter",
-    key: "reporter"
-  },
-  {
-    title: "Người được phân công",
-    dataIndex: "assignee",
-    key: "assignee"
-  },
-  {
-    title: "Trạng thái",
-    dataIndex: "status", // 'open', 'inProcess', 'resolve', 'close'
-    key: "status",
-    render: (text) => {
-      switch (text) {
-        case "open":
-          return <Tag color="default">{text}</Tag>;
-        case "inProcess":
-          return <Tag color="processing">{text}</Tag>;
-        case "resolve":
-          return <Tag color="warning">{text}</Tag>;
-        case "close":
-          return <Tag color="success">{text}</Tag>;
-      }
-    }
-  },
-  {
-    title: "Mức độ",
-    dataIndex: "level", // 'normal', 'urgency'
-    key: "level",
-    render: (text) => {
-      switch (text) {
-        case "normal":
-          return <Tag color="#2db7f5">{text}</Tag>;
-        case "urgency":
-          return <Tag color="#f50">{text}</Tag>;
-      }
-    }
-  },
-  {
-    title: "Người tạo",
-    dataIndex: "createdBy",
-    key: "createdBy"
-  },
-  {
-    title: "Ngày dự kiến hoàn thành",
-    dataIndex: "dueDate",
-    key: "dueDate"
-  },
-  {
-    title: "Thời gian đã xử lý sự cố",
-    dataIndex: "loggedTime", //Nhân viên phải log time chi tiết về việc xử lý sự cố: (từ mấy h - đến mấy h, đã làm gì)
-    key: "loggedTime"
-  }
-];
+let levels = []
+
 
 const data = [
   {
@@ -150,26 +88,120 @@ const data = [
     loggedTime: "4h"
   }
 ];
+
+
+let status = []
 const Incident = () => {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(false);
   const { notify, getData } = useBaseHook();
-  useEffect(() => {
-    async function fetch() {
-      let [error, _users = []] = await to(userService().withAuth().index());
-      setLoading(false);
-      if (error) {
-        notify(error.message, "", "error");
-        return;
+  const [incidents, setIncidents] = useState([])
+  const [levels, setLevels] = useState([])
+  const [status, setStatus] = useState([])
+  const columns = [
+    {
+      name: "Tên sự cố",
+      dataIndex: "name",
+      key: "name",
+      width: '20%',
+      render: (text, record) => <a href={`/incidents/${record._id}`}>{text}</a>
+    },
+    {
+      title: "Mô tả",
+      dataIndex: "description",
+      key: "description",
+      width: '20%'
+    },
+    // {
+    //   title: "Người phân công",
+    //   dataIndex: "reporter",
+    //   key: "reporter",
+    //   render: (text, record) => record.assignee[0]
+    // },
+    // {
+    //   title: "Người được phân công",
+    //   dataIndex: "assignee",
+    //   key: "assignee"
+    // },
+    {
+      title: "Trạng thái",
+      dataIndex: "status", // 'open', 'inProcess', 'resolve', 'close'
+      key: "status",
+      filters: status.map(item => {return {text: item.name, value: item.code}}),
+      onFilter: (value, record) => Number(record.status.code) === Number(value),
+      render: (text) => {
+        switch (text.code) {
+          case 0:
+            return <Tag color="default">{text.name}</Tag>;
+          case 1:
+            return <Tag color="processing">{text.name}</Tag>;
+          case 2:
+            return <Tag color="warning">{text.name}</Tag>;
+          case 3:
+            return <Tag color="success">{text.name}</Tag>;
+        }
       }
-      console.log("_users ", _users);
-      setUsers(_users);
-    }
+    },
+    {
+      title: "Mức độ",
+      dataIndex: "level", // 'normal', 'urgency'
+      key: "level",
+      filters: levels.map(item => {return {text: item.name, value: item.code}}),
+      onFilter: (value, record) => Number(record.level.code) === Number(value),
+      render: (text) => {
+        console.log('text', text)
+        switch (text.code) {
+          case 0:
+            return <Tag color="#2db7f5">{text.name}</Tag>;
+          case 1:
+            return <Tag color="#f50">{text.name}</Tag>;
+        }
+      }
+    },
+    {
+      title: "Người tạo",
+      dataIndex: "createdBy",
+      key: "createdBy"
+    },
+    {
+      title: "Hạn dự kiến",
+      dataIndex: "dueDate",
+      key: "dueDate",
+      sorter: (a, b) => moment(a.dueDate).format('YYYYMMDD') - moment(b.dueDate).format('YYYYMMDD'),
+      sortDirections: ['descend', 'ascend'],
+      render: (text => moment(text).format('YYYY-MM-DD'))
+    },
+    {
+      title: "Ngày tạo",
+      dataIndex: "createdAt",
+      key: "createdAt",
+      sorter: (a, b) => moment(a.createdAt).format('YYYYMMDD') - moment(b.createdAt).format('YYYYMMDD'),
+      sortDirections: ['descend', 'ascend'],
+      render: (text => moment(text).format('YYYY-MM-DD'))
+    },
+    // {
+    //   title: "Thời gian đã xử lý sự cố",
+    //   dataIndex: "loggedTime", //Nhân viên phải log time chi tiết về việc xử lý sự cố: (từ mấy h - đến mấy h, đã làm gì)
+    //   key: "loggedTime"
+    // }
+  ];
 
-    fetch();
-    // code to run on component mount
+  useEffect(() => {
+    fetchData()
   }, []);
-  return <Table columns={columns} loading={loading} dataSource={data} />;
+
+  const fetchData = async () => {
+      let [error, incidents] = await to(incidentService().index())
+      let [error1, _levels] = await to(incidentLevelService().index())
+      let [error2, _status] = await to(incidentStatusService().index())
+      if(error) message.error('Không thể trả về danh sách sự cố!')
+      if(error1) message.error('Không thể trả về danh sách mức độ sự cố!')
+      setIncidents(incidents.incidents || [])
+      setLevels(_levels)
+      setStatus(_status)
+    console.log('incidents', incidents)
+  }
+  return <Table columns={columns} loading={loading} dataSource={incidents} />;
 };
 
 export default Incident;

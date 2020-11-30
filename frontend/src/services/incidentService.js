@@ -1,30 +1,32 @@
 import Base from "./baseService";
 import to from "await-to-js"
 class Service extends Base {
+  url = '/api/incidents'
+
   index = async (filter) => {
     return this.request({
-      url: "/api/users",
-      method: "GET",
+      url: `${this.url}/search`,
+      method: "POST",
       data: filter
     });
   };
   create = async (data) => {
     return this.request({
-      url: "/api/users",
+      url: this.url,
       method: "POST",
       data: data
     });
   };
   edit = async (user) => {
     return this.request({
-      url: `/api/users/${user.id}`,
+      url: `${this.url}/${user.id}`,
       method: "PUT",
       data: user
     });
   };
   detail = async (id) => {
     return this.request({
-      url: `/api/users/${id}`,
+      url: `${this.url}/${id}`,
       method: "GET",
       data: {
         id
@@ -33,7 +35,7 @@ class Service extends Base {
   };
   delete = async ({ ids } = {}) => {
     return this.request({
-      url: "/api/users",
+      url: this.url,
       method: "DELETE",
       data: {
         ids
@@ -41,19 +43,7 @@ class Service extends Base {
     });
   };
 
-  login = async ({ email, password } = {}) => {
-    const url = 'https://distributed.de-lalcool.com/api/login'
 
-    const response = await fetch(url, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'project-type': 'LUOI_DIEN'
-      },
-      body: JSON.stringify({email, password})
-    });
-    return response.json();
-  };
 }
 
 export default () => new Service();

@@ -4,8 +4,11 @@ const cookies = new Cookies();
 
 
 export default () => {
+  console.log('cookies', cookies)
   let token = cookies.get("token");
   let user = cookies.get("user");
+  let apiToken = cookies.get('api-token');
+  let projectType = cookies.get('project-type')
 
   const setAuth = ({ token, user } = {}) => {
     const options = {
@@ -13,20 +16,26 @@ export default () => {
       //maxAge: 86400 * 365
       expires: moment().add(1, "years").toDate(),
     };
-    cookies.set("token", token, options);
+    cookies.set("api-token", apiToken, options);
+    cookies.set("project-type", projectType, options);
     cookies.set("user", user, options);
   };
   const logout = () => {
-    cookies.remove("token", {
+    cookies.remove("api-token", {
       path: "/",
     });
     cookies.remove("user", {
+      path: "/",
+    });
+    cookies.remove("project-type", {
       path: "/",
     });
   };
   return {
     token,
     user,
+    apiToken,
+    projectType,
     setAuth,
     logout,
   };
