@@ -93,7 +93,7 @@ const data = [
 let status = []
 const Incident = () => {
   const [users, setUsers] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const { notify, getData } = useBaseHook();
   const [incidents, setIncidents] = useState([])
   const [levels, setLevels] = useState([])
@@ -191,6 +191,7 @@ const Incident = () => {
   }, []);
 
   const fetchData = async () => {
+      setLoading(true)
       let [error, incidents] = await to(incidentService().index())
       let [error1, _levels] = await to(incidentLevelService().index())
       let [error2, _status] = await to(incidentStatusService().index())
@@ -199,9 +200,10 @@ const Incident = () => {
       setIncidents(incidents.incidents || [])
       setLevels(_levels)
       setStatus(_status)
+    setLoading(false)
     console.log('incidents', incidents)
   }
-  return <Table columns={columns} loading={loading} dataSource={incidents} />;
+  return <Table columns={columns} loading={loading} dataSource={incidents} loading={loading} />;
 };
 
 export default Incident;

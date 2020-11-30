@@ -44,10 +44,10 @@ export const sidebarMenu = [
     route: '/payloads',
   },
   {
-    key: 'metadata',
+    key: 'imageGallery',
     heading: 'Hình ảnh và video',
     icon: 'fas fa-images',
-    route: '/metadata',
+    route: '/imageGallery',
   },
   {
     key: 'Problems',
