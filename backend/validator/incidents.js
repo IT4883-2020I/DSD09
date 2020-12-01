@@ -16,6 +16,14 @@ const validateCreateIncident = () => {
       .optional({ nullable: true }),
     check("videos", "Videos must be Array of video url drive")
       .isArray()
+      .optional({ nullable: true }),
+    check("tags", "Tags must be array of string")
+      .isArray()
+      .custom((a) => {
+        return a.every((e) => {
+          return typeof e === "string" || e instanceof String;
+        });
+      })
       .optional({ nullable: true })
   ];
 };
@@ -56,6 +64,14 @@ const validateUpdateIncident = () => {
     check("addVideoIds", "addVideoIds must be Array").isArray().optional({ nullable: true }),
     check("deleteImageIds", "deleteImageIds must be Array").isArray().optional({ nullable: true }),
     check("deleteVideoIds", "deleteVideoIds must be Array").isArray().optional({ nullable: true }),
+    check("tags", "Tags must be array of string")
+      .isArray()
+      .custom((a) => {
+        return a.every((e) => {
+          return typeof e === "string" || e instanceof String;
+        });
+      })
+      .optional({ nullable: true }),
     check("assignee", "Assignee must be array of number")
       .isArray()
       .custom((a) => {

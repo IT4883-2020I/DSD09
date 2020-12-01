@@ -3,6 +3,7 @@ import Incident from "../models/incidentModel.js";
 import IncidentType from "../models/incidentTypeModel.js";
 import IncidentStatus from "../models/incidentStatusModel.js";
 import IncidentLevel from "../models/incidentLevelModel.js";
+import IncidentTag from "../models/incidentTagModel.js";
 import { validationResult } from "express-validator";
 import _ from "lodash";
 import axios from "axios";
@@ -43,11 +44,37 @@ const createIncident = asyncHandler(async (req, res) => {
     incident.dueDate = new Date(req.body.dueDate);
   }
 
+  // Incident tags
+  const tags = req.body.tags;
+  if (tags && tags.length) {
+    const incidentTagIds = await handleIncidentTag(tags, incidentTypeId);
+    incident.tags = incidentTagIds;
+  }
+
   let createIncident = new Incident(incident);
   let newIncident = await createIncident.save();
   newIncident = await findIncidentById(newIncident._id);
   return res.json(newIncident);
 });
+
+const handleIncidentTag = async (tags, incidentTypeId) => {
+  const incidentTags = await IncidentTag.find({ type: incidentTypeId }).exec();
+  let insertTags = [];
+  let incidentTagIds = [];
+  tags.forEach(async (tag) => {
+    const existTag = _.find(incidentTags, { name: tag });
+    if (!existTag) {
+      insertTags.push({ name: tag, type: incidentTypeId });
+    } else {
+      incidentTagIds.push(existTag._id);
+    }
+  });
+  insertTags = await IncidentTag.insertMany(insertTags);
+  insertTags.forEach((insertTag) => {
+    incidentTagIds.push(insertTag._id);
+  });
+  return incidentTagIds;
+};
 
 const updateIncident = asyncHandler(async (req, res) => {
   const errors = validationResult(req);
@@ -71,8 +98,8 @@ const updateIncident = asyncHandler(async (req, res) => {
     incident.assignee = payload.assignee;
     incident.assignedBy = req.user.id;
   }
+  const incidentTypeId = await IncidentType.findOne({ type: payload.type }, "_id").exec();
   if (payload.type) {
-    const incidentTypeId = await IncidentType.findOne({ type: payload.type }, "_id").exec();
     incident.type = incidentTypeId;
   }
   if (payload.status !== undefined) {
@@ -99,6 +126,14 @@ const updateIncident = asyncHandler(async (req, res) => {
   if (payload.deleteVideoIds && payload.deleteVideoIds.length > 0) {
     incident.videos = incident.videos.filter((video) => !payload.deleteVideoIds.includes(video.id));
   }
+
+  // Tag
+  const tags = payload.tags;
+  if (tags && tags.length) {
+    const incidentTagIds = await handleIncidentTag(tags, incidentTypeId);
+    console.log(incidentTagIds);
+    incident.tags = incidentTagIds;
+  }
   await incident.save();
   const newIncident = await findIncidentById(req.params.id);
   res.json(newIncident);
@@ -123,7 +158,10 @@ const getIncidents = asyncHandler(async (req, res) => {
   const apiToken = req.headers["api-token"] || "";
   const projectType = req.headers["project-type"] || "";
   const assignedIncidentIds = await getAssignedIncidentIds(apiToken, projectType);
-  console.log(assignedIncidentIds);
+  if (!assignedIncidentIds) {
+    res.status(500);
+    throw new Error("Lỗi API getAssignedIncidentIds");
+  }
   const { status, level } = req.body;
   incidents = incidents.filter((incident) => {
     if (level !== undefined && level !== incident.level.code) return false;
@@ -174,6 +212,7 @@ const findIncidentById = async (id) => {
     .populate("type")
     .populate("status")
     .populate("level")
+    .populate("tags")
     .exec();
   return incident;
 };
