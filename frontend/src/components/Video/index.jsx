@@ -11,45 +11,51 @@ import "videojs-markers";
 const SOURCES = [
   {
     src: "//vjs.zencdn.net/v/oceans.mp4",
-    type: "video/mp4"
+    type: "video/mp4",
   },
   {
     src: "//vjs.zencdn.net/v/oceans.webm",
-    type: "video/webm"
+    type: "video/webm",
   },
   {
     src: "//vjs.zencdn.net/v/oceans.ogg",
-    type: "video/ogg"
-  }
+    type: "video/ogg",
+  },
 ];
 
-var options = {};
+var options = { responsive: true };
 var player;
 let markers = [];
-const Video = React.forwardRef(
-    (
-      props,
-      ref
-    ) =>  {
+const Video = React.forwardRef((props, ref) => {
   const { poster = "//vjs.zencdn.net/v/oceans.png", sources = SOURCES } = props;
-  
+
   useEffect(() => {
     player = videojs("incident-video", options);
-    // debugger
-    console.log("player.markers ", player.markers);
+    if(typeof player.markers === "function"){
+        player.markers({
+            markers: []
+        })
+    } else {
+        window.location.reload();
+    }
+    
   }, []);
 
   const setMakers = (markers = []) => {
     player.markers.reset(markers);
   };
+
   useImperativeHandle(ref, () => ({
     setMakersByIncidents(incidents = []) {
-        setMakers([{ time: 8.1, text: "this", overlayText: "I'm new" }])
+      setMakers(incidents);
+    },
+    currentTime() {
+      return player.currentTime();
     },
   }));
 
   return (
-    <div>
+    <div style={{ height: "400px" }}>
       <video
         id="incident-video"
         className="video-js"

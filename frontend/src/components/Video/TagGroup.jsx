@@ -29,6 +29,10 @@ class EditableTagGroup extends React.Component {
     this.setState({ inputValue: value });
   };
 
+  getTags = () => {
+      return this.state.tags;
+  }
+
   handleInputConfirm = () => {
     const { inputValue } = this.state;
     let { tags } = this.state;
@@ -137,7 +141,7 @@ class EditableTagGroup extends React.Component {
         )}
         {!inputVisible && (
           <Tag className="site-tag-plus" onClick={this.showInput}>
-            <PlusOutlined /> New Tag
+            <PlusOutlined /> Thêm nhãn
           </Tag>
         )}
       </>
