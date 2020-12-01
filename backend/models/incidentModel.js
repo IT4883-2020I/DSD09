@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 import IncidentType from "./incidentTypeModel.js";
 import IncidentStatus from "./incidentStatusModel.js";
 import IncidentLevel from "./incidentLevelModel.js";
+import IncidentTag from "./incidentTagModel.js";
 
 var Schema = mongoose.Schema;
 
@@ -30,14 +31,14 @@ const incidentModel = mongoose.Schema(
     createdBy: {
       type: Number
     },
-    assignee: [
-      {
-        type: Number
-      }
-    ],
-    assignedBy: {
-      type: Number
-    },
+    // assignee: [
+    //   {
+    //     type: Number
+    //   }
+    // ],
+    // assignedBy: {
+    //   type: Number
+    // },
     dueDate: {
       type: Date
     },
@@ -46,7 +47,13 @@ const incidentModel = mongoose.Schema(
       ref: IncidentType
     },
     images: [Object],
-    videos: [Object]
+    videos: [Object],
+    tags: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: IncidentTag
+      }
+    ]
   },
   {
     timestamps: true

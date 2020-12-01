@@ -13,6 +13,7 @@ import incidentRoutes from "./routes/incidentRoutes.js";
 import incidentTypeRoutes from "./routes/incidentTypeRoutes.js";
 import incidentStatusRoutes from "./routes/incidentStatusRoutes.js";
 import incidentLevelRoutes from "./routes/incidentLevelRoutes.js";
+import incidentTagRoutes from "./routes/incidentTagRoutes.js";
 import uploadRoutes from "./routes/uploadRoutes.js";
 
 dotenv.config();
@@ -31,6 +32,7 @@ app.use("/api/incidents", incidentRoutes);
 app.use("/api/incident-types", incidentTypeRoutes);
 app.use("/api/incident-status", incidentStatusRoutes);
 app.use("/api/incident-levels", incidentLevelRoutes);
+app.use("/api/incident-tags", incidentTagRoutes);
 app.use("/api/upload", uploadRoutes);
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 

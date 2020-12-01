@@ -123,7 +123,10 @@ const getIncidents = asyncHandler(async (req, res) => {
   const apiToken = req.headers["api-token"] || "";
   const projectType = req.headers["project-type"] || "";
   const assignedIncidentIds = await getAssignedIncidentIds(apiToken, projectType);
-  console.log(assignedIncidentIds);
+  if (!assignedIncidentIds) {
+    res.status(500);
+    throw new Error("Lỗi API getAssignedIncidentIds");
+  }
   const { status, level } = req.body;
   incidents = incidents.filter((incident) => {
     if (level !== undefined && level !== incident.level.code) return false;
