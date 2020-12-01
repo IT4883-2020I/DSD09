@@ -3,6 +3,7 @@ import Incident from "../models/incidentModel.js";
 import IncidentType from "../models/incidentTypeModel.js";
 import IncidentStatus from "../models/incidentStatusModel.js";
 import IncidentLevel from "../models/incidentLevelModel.js";
+import IncidentTag from "../models/incidentTagModel.js";
 import { validationResult } from "express-validator";
 import _ from "lodash";
 import axios from "axios";
@@ -41,6 +42,28 @@ const createIncident = asyncHandler(async (req, res) => {
 
   if (req.body.dueDate) {
     incident.dueDate = new Date(req.body.dueDate);
+  }
+
+  // Incident tags
+  const tags = req.body.tags;
+  if (tags && tags.length) {
+    const incidentTags = await IncidentTag.find({ type: incidentTypeId }).exec();
+    let insertTags = [];
+    let incidentTagIds = [];
+    tags.forEach(async (tag) => {
+      const existTag = _.find(incidentTags, { name: tag });
+      if (!existTag) {
+        insertTags.push({ name: tag, type: incidentTypeId });
+      } else {
+        incidentTagIds.push(existTag._id);
+      }
+    });
+    insertTags = await IncidentTag.insertMany(insertTags);
+    insertTags.forEach((insertTag) => {
+      incidentTagIds.push(insertTag._id);
+    });
+    console.log(insertTags, incidentTagIds);
+    incident.tags = incidentTagIds;
   }
 
   let createIncident = new Incident(incident);
@@ -177,6 +200,7 @@ const findIncidentById = async (id) => {
     .populate("type")
     .populate("status")
     .populate("level")
+    .populate("tags")
     .exec();
   return incident;
 };
