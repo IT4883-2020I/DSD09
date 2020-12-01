@@ -20,7 +20,9 @@
     "react-scripts": "^3.4.1",
     "recompose": "^0.30.0",
     "styled-components": "^5.1.1",
-    "universal-cookie": "^4.0.4"
+    "universal-cookie": "^4.0.4",
+    "videojs-caption": "^0.4.0",
+    "videojs-markers": "^1.0.1"
   },
   "browserslist": {
     "production": [

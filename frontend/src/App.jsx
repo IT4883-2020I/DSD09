@@ -3,6 +3,7 @@ import { BrowserRouter, Switch, Route } from "react-router-dom";
 import MainLayout from "./containers/MainLayout";
 import Login from "./pages/Login";
 import appRoute from "./pages/routes";
+import "videojs-markers";
 
 const App = () => {
   return (
