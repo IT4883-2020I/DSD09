@@ -57,11 +57,11 @@ const Video = React.forwardRef((props, ref) => {
   return (
       <video
         id="incident-video"
-        className="video-js"
+        className="video-js vjs-default-skin"
         controls
         preload="auto"
         poster={poster}
-        data-setup="{}"
+        ata-setup='{"fluid": true}'
         {...props}
       >
         {sources.map((item, index) => (
