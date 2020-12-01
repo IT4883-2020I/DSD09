@@ -55,7 +55,6 @@ const Video = React.forwardRef((props, ref) => {
   }));
 
   return (
-    <div style={{ height: "400px" }}>
       <video
         id="incident-video"
         className="video-js"
@@ -76,7 +75,6 @@ const Video = React.forwardRef((props, ref) => {
           </a>
         </p>
       </video>
-    </div>
   );
 });
 export default Video;
