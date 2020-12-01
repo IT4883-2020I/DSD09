@@ -54,8 +54,8 @@ const IncidentEdit = (props) => {
 
   const fetchData = async () => {
     let [error, incident] = await to(incidentService().detail(id))
-    let [error1, _levels] = await to(incidentLevelService().index())
-    let [error2, _status] = await to(incidentStatusService().index())
+    let [error1, _levels = []] = await to(incidentLevelService().index())
+    let [error2, _status = []] = await to(incidentStatusService().index())
     if(error) message.error('Không thể trả về thông tin sự cố!')
     if(error1) message.error('Không thể trả về danh sách mức độ sự cố!')
     setIncident(incident || {})

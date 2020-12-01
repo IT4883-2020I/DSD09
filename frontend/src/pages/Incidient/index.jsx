@@ -193,8 +193,8 @@ const Incident = () => {
   const fetchData = async () => {
       setLoading(true)
       let [error, incidents = {}] = await to(incidentService().index())
-      let [error1, _levels] = await to(incidentLevelService().index())
-      let [error2, _status] = await to(incidentStatusService().index())
+      let [error1, _levels = []] = await to(incidentLevelService().index())
+      let [error2, _status = []] = await to(incidentStatusService().index())
       if(error) message.error('Không thể trả về danh sách sự cố!')
       if(error1) message.error('Không thể trả về danh sách mức độ sự cố!')
       setIncidents(incidents.incidents || [])

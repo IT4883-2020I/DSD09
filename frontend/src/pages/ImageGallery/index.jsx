@@ -61,7 +61,7 @@ const ImageGalley = (props) => {
     }, [])
 
     const fetchLevels = async () => {
-        let [error2, res] = await to(incidentLevelService().index())
+        let [error2, res = []] = await to(incidentLevelService().index())
         levels = res
     }
     const allImagesSelected = (_images) => {
