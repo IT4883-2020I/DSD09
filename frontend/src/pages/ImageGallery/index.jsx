@@ -2,19 +2,13 @@ import React, {useState, useEffect} from "react";
 import to from "await-to-js";
 import userService from "@services/userService";
 import {
-    InputNumber,
-    Switch,
     Button,
     Checkbox,
-    Table,
-    Tag,
     Modal,
-    Radio,
     Input,
     Form,
     Select,
     DatePicker,
-    TreeSelect,
     message
 } from "antd";
 import useBaseHook from "@hooks/BaseHooks";
@@ -115,7 +109,6 @@ const ImageGalley = (props) => {
                 type: "LUOI_DIEN"
             }))
             if(error) message.error('Đã có lỗi xảy ra!')
-            console.log('res', res)
             message.success('Sự cố đã được tạo mới!')
             setConfirmLoading(false)
             setVisible(false)

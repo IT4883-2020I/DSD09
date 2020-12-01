@@ -4,8 +4,6 @@ const cookies = new Cookies();
 
 
 export default () => {
-  console.log('cookies', cookies)
-  let token = cookies.get("token");
   let user = cookies.get("user");
   let apiToken = cookies.get('api-token');
   let projectType = cookies.get('project-type')
@@ -32,7 +30,6 @@ export default () => {
     });
   };
   return {
-    token,
     user,
     apiToken,
     projectType,

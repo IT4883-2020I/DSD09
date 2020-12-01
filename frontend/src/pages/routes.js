@@ -92,7 +92,8 @@ export const routes = [
   }
 ];
 
-const token = auth().token;
+// const token = auth().token;
+const token = true;
 export default () => (
   <Switch>
     {routes.map(({ path, exact = false, component: Component, ...rest }) => {

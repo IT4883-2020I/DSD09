@@ -21,6 +21,7 @@
     "recompose": "^0.30.0",
     "styled-components": "^5.1.1",
     "universal-cookie": "^4.0.4",
+    "video-snapshot": "^1.0.9",
     "videojs-caption": "^0.4.0",
     "videojs-markers": "^1.0.1"
   },

@@ -1,7 +1,7 @@
 import Base from "./baseService";
 import to from "await-to-js"
-class IncidentLevelService extends Base {
-  url = '/api/incident-status'
+class IncidentTagService extends Base {
+  url = '/api/incident-tags'
 
   index = async () => {
     return this.request({
@@ -13,4 +13,4 @@ class IncidentLevelService extends Base {
 
 }
 
-export default () => new IncidentLevelService();
+export default () => new IncidentTagService();

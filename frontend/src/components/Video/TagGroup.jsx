@@ -1,23 +1,28 @@
 import { Tag, Input, Tooltip, AutoComplete } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
+import incidentTagService from "@services/incidentTagService";
 import React from "react";
-const options = [
-  { value: "Cháy rừng" },
-  { value: "Hư mạch điện" },
-  { value: "Wall Street" },
-];
+import to from "await-to-js"
+
 class EditableTagGroup extends React.Component {
+
   state = {
-    tags: [],
+    tags: this.props.defaultValue || [],
+    options: [],
     inputVisible: false,
     inputValue: "",
     editInputIndex: -1,
     editInputValue: "",
   };
-
+    async componentDidMount() {
+        let [error2, res = []] = await to(incidentTagService().index());
+        if(!error2){
+            let options =res.map(item => ({value: item.name}))
+            this.setState({options: options});
+        }
+  }
   handleClose = (removedTag) => {
     const tags = this.state.tags.filter((tag) => tag !== removedTag);
-    console.log(tags);
     this.setState({ tags });
   };
 
@@ -121,7 +126,7 @@ class EditableTagGroup extends React.Component {
             className="tag-input"
             style={{ width: 200 }}
             size="small"
-            options={options}
+            options={this.state.options}
             className="tag-input"
             filterOption={(inputValue, option) =>
               option.value.toUpperCase().indexOf(inputValue.toUpperCase()) !==
