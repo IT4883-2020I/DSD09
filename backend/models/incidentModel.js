@@ -50,8 +50,15 @@ const incidentModel = mongoose.Schema(
     videos: [Object],
     tags: [
       {
-        type: Schema.Types.ObjectId,
-        ref: IncidentTag
+        tag: {
+          type: Schema.Types.ObjectId,
+          ref: IncidentTag
+        },
+        tagger: Number,
+        tagAt: {
+          type: Date,
+          default: Date.now
+        }
       }
     ]
   },

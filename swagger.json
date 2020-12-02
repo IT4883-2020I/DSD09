@@ -455,6 +455,116 @@
         ],
         "responses": {}
       }
+    },
+
+    "/incident-tags": {
+      "get": {
+        "tags": ["incident tags"],
+        "description": "API lấy danh sách mức độ của sự cố",
+        "parameters": [
+          {
+            "name": "api-token",
+            "in": "header",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "project-type",
+            "in": "header",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "responses": {}
+      },
+
+      "post": {
+        "tags": ["incident tags"],
+        "description": "API tạo mới incident tag",
+        "parameters": [
+          {
+            "name": "api-token",
+            "in": "header",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "project-type",
+            "in": "header",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/CreateIncidentTag"
+            }
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/incident-tags/{id}": {
+      "put": {
+        "tags": ["incident tags"],
+        "description": "API update incident tag",
+        "parameters": [
+          {
+            "name": "api-token",
+            "in": "header",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "project-type",
+            "in": "header",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID của tag",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/UpdateIncidentTag"
+            }
+          }
+        ],
+        "responses": {}
+      },
+      "delete": {
+        "tags": ["incident tags"],
+        "description": "API xóa tag",
+        "parameters": [
+          {
+            "name": "api-token",
+            "in": "header",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "project-type",
+            "in": "header",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID của tag",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "responses": {}
+      }
     }
   },
 
@@ -518,6 +628,11 @@
           "description": "1 trong 4 giá trị LUOI_DIEN, CAY_TRONG, DE_DIEU, CHAY_RUNG",
           "example": "LUOI_DIEN"
         },
+        "tags": {
+          "type": "array",
+          "description": "Mảng các tên của tag cần gán nhãn",
+          "example": ["cháy nhà", "cháy chung cư"]
+        },
         "assignee": {
           "type": "array",
           "description": "Mảng các user id",
@@ -580,6 +695,26 @@
         }
       }
     },
+    "CreateIncidentTag": {
+      "properties": {
+        "name": {
+          "type": "string",
+          "example": "Lưới điện cao thế"
+        },
+        "type": {
+          "type": "string",
+          "example": "LUOI_DIEN"
+        }
+      }
+    },
+    "UpdateIncidentTag": {
+      "properties": {
+        "name": {
+          "type": "string",
+          "example": "Đứt dây điện"
+        }
+      }
+    },
     "CreateIncident": {
       "properties": {
         "name": {
@@ -591,6 +726,11 @@
           "type": "string",
           "example": "Tạo mới sự cố description",
           "required": true
+        },
+        "tags": {
+          "type": "array",
+          "description": "Mảng các tên của tag cần gán nhãn",
+          "example": ["cháy nhà", "cháy chung cư"]
         },
         "location": {
           "type": "string",

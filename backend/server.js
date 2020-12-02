@@ -16,6 +16,11 @@ import incidentLevelRoutes from "./routes/incidentLevelRoutes.js";
 import incidentTagRoutes from "./routes/incidentTagRoutes.js";
 import uploadRoutes from "./routes/uploadRoutes.js";
 
+var options = {
+  customCss: ".swagger-ui .topbar { display: none }",
+  customSiteTitle: "Danh sách API nhóm 9 - Quản lý sự cố"
+};
+
 dotenv.config();
 
 connectDB();
@@ -34,7 +39,7 @@ app.use("/api/incident-status", incidentStatusRoutes);
 app.use("/api/incident-levels", incidentLevelRoutes);
 app.use("/api/incident-tags", incidentTagRoutes);
 app.use("/api/upload", uploadRoutes);
-app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument, options));
 
 const __dirname = path.resolve();
 app.use("/uploads", express.static(path.join(__dirname, "/uploads")));

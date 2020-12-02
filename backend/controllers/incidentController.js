@@ -48,7 +48,9 @@ const createIncident = asyncHandler(async (req, res) => {
   const tags = req.body.tags;
   if (tags && tags.length) {
     const incidentTagIds = await handleIncidentTag(tags, incidentTypeId);
-    incident.tags = incidentTagIds;
+    incident.tags = incidentTagIds.map((tagId) => {
+      return { tag: tagId, tagger: req.user.id };
+    });
   }
 
   let createIncident = new Incident(incident);
@@ -131,8 +133,9 @@ const updateIncident = asyncHandler(async (req, res) => {
   const tags = payload.tags;
   if (tags && tags.length) {
     const incidentTagIds = await handleIncidentTag(tags, incidentTypeId);
-    console.log(incidentTagIds);
-    incident.tags = incidentTagIds;
+    incident.tags = incidentTagIds.map((tagId) => {
+      return { tag: tagId, tagger: req.user.id };
+    });
   }
   await incident.save();
   const newIncident = await findIncidentById(req.params.id);
@@ -153,6 +156,7 @@ const getIncidents = asyncHandler(async (req, res) => {
     .populate("type")
     .populate("status")
     .populate("level")
+    .populate("tags.tag")
     .exec();
 
   const apiToken = req.headers["api-token"] || "";
@@ -212,7 +216,7 @@ const findIncidentById = async (id) => {
     .populate("type")
     .populate("status")
     .populate("level")
-    .populate("tags")
+    .populate("tags.tag")
     .exec();
   return incident;
 };

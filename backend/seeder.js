@@ -18,8 +18,8 @@ connectDB();
 
 const importData = async () => {
   try {
-    await IncidentModel.deleteMany();
-    await IncidentModel.insertMany(incidents);
+    // await IncidentModel.deleteMany();
+    // await IncidentModel.insertMany(incidents);
 
     // await IncidentTypeModel.deleteMany();
     // await IncidentTypeModel.insertMany(incidentTypes);
@@ -41,7 +41,7 @@ const importData = async () => {
 const destroyData = async () => {
   try {
     // await IncidentTypeModel.deleteMany();
-    await IncidentModel.deleteMany();
+    // await IncidentModel.deleteMany();
 
     console.log("Data Destroyed!".red.inverse);
     process.exit();
