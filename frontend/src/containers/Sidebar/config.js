@@ -43,24 +43,46 @@ export const sidebarMenu = [
     icon: 'fas fa-layer-group',
     route: '/payloads',
   },
-  {
-    key: 'imageGallery',
-    heading: 'Hình ảnh',
-    icon: 'fas fa-images',
-    route: '/imageGallery',
-  },
-  {
-    key: 'videoGallery',
-    heading: 'Video',
-    icon: 'fas fa-images',
-    route: '/videoGallery',
-  },
+  // {
+  //   key: 'imageGallery',
+  //   heading: 'Hình ảnh',
+  //   icon: 'fas fa-images',
+  //   route: '/imageGallery',
+  // },
+  // {
+  //   key: 'videoGallery',
+  //   heading: 'Video',
+  //   icon: 'fas fa-images',
+  //   route: '/videoGallery',
+  // },
   {
     key: 'Problems',
     heading: 'Sự cố',
     icon: 'fas fa-times-octagon',
-    route: '/incidents',
+    route: '/drones',
+    subMenu: [
+      {
+        key: 'Problems-list',
+        heading: 'Danh sách sự cố',
+        icon: 'fas fa-times-octagon',
+        route: '/incidents',
+      },
+      {
+        key: 'Propblems-imageGallery',
+        heading: 'Tạo offline',
+        icon: 'fas fa-images',
+        route: '/imageGallery',
+      },
+      {
+        key: 'Propblems-videoGallery',
+        heading: 'Tạo từ tream',
+        icon: 'fas fa-images',
+        route: '/videoGallery',
+      },
+    ],
   },
+
+
   {
     key: 'SupervisedObject',
     heading: 'Đối tượng giám sát',
