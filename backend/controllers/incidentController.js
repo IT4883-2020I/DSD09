@@ -161,10 +161,12 @@ const getIncidents = asyncHandler(async (req, res) => {
 
   const apiToken = req.headers["api-token"] || "";
   const projectType = req.headers["project-type"] || "";
-  const assignedIncidentIds = await getAssignedIncidentIds(apiToken, projectType);
-  if (!assignedIncidentIds) {
+  let assignedIncidentIds;
+  try {
+    assignedIncidentIds = await getAssignedIncidentIds(apiToken, projectType);
+  } catch (error) {
     res.status(500);
-    throw new Error("Lỗi API getAssignedIncidentIds");
+    throw new Error(error);
   }
   const { status, level } = req.body;
   incidents = incidents.filter((incident) => {
@@ -229,9 +231,11 @@ const getAssignedIncidentIds = async (apiToken, projectType) => {
     }
   });
   const { current_task, pending_tasks, done_tasks } = tasks.data;
-  const incidentIds = [current_task.incident_id]
-    .concat(pending_tasks.map((item) => item.incident_id))
-    .concat(done_tasks.map((item) => item.incident_id));
+  const incidentIds = current_task
+    ? [current_task.incident_id]
+    : []
+        .concat(pending_tasks.map((item) => item.incident_id))
+        .concat(done_tasks.map((item) => item.incident_id));
   return incidentIds;
 };
 
