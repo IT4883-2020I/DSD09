@@ -10,6 +10,24 @@ const CreateModel = React.forwardRef((props, ref) => {
   const [confirmLoading, setConfirmLoading] = React.useState(false);
   const [form] = Form.useForm();
   const [levels, setLevels] = useState([]);
+  const types = [
+    {
+      code: '1',
+      name: 'Lưới điện'
+    },
+    {
+      code: '2',
+      name: 'Cây trồng'
+    },
+    {
+      code: '3',
+      name: 'Đê điều'
+    },
+    {
+      code: '4',
+      name: 'Cháy rừng'
+    }
+  ]
   const showModal = () => {
     setVisible(true);
   };
@@ -98,6 +116,19 @@ const CreateModel = React.forwardRef((props, ref) => {
                 <Select.Option value={item.code} key={item.code}>
                   {item.name}
                 </Select.Option>
+              ))}
+            </Select>
+          </Form.Item>
+          <Form.Item
+              label="Loại sự cố"
+              name="type"
+              rules={[{ required: true, message: "Vui lòng nhập thông tin!" }]}
+          >
+            <Select>
+              {types.map((item) => (
+                  <Select.Option value={item.code} key={item.code}>
+                    {item.name}
+                  </Select.Option>
               ))}
             </Select>
           </Form.Item>
