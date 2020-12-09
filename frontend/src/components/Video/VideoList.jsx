@@ -2,7 +2,7 @@ import {List, Avatar, Checkbox, Button, Modal, Form, Input, Select, DatePicker, 
 import TagGroup from "./TagGroup";
 import CreateIncidentModel from "../Model/CreateIncidentModel";
 import React, {useState, useRef, useEffect} from "react";
-
+import _ from 'lodash'
 let defaultTags = [];
 let currentIndex = -1;
 const VideoList = ({incidents = [], onChangeTags}) => {
@@ -11,6 +11,9 @@ const VideoList = ({incidents = [], onChangeTags}) => {
     let allTags = [];
     for (let incident of incidents) {
         allTags = allTags.concat(incident.tags || [])
+        allTags = _.uniqBy(allTags, function (e) {
+            return e;
+        });
     }
     const [filteredVideos, setFilteredVideo] = useState(incidents);
 
