@@ -20,27 +20,42 @@ import moment from "moment";
 const IMAGES =
     [
         {
-        src: "https://c2.staticflickr.com/9/8817/28973449265_07e3aa5d2e_b.jpg",
-        thumbnail: "https://c2.staticflickr.com/9/8817/28973449265_07e3aa5d2e_n.jpg",
-        thumbnailWidth: 320,
-        thumbnailHeight: 174,
-        // isSelected: true,
-        caption: "After Rain (Jeshu John - designerspics.com)"
-    },
+            src: "https://image.thanhnien.vn/660/uploaded/ngocminh/2016_07_06/chay_onhu.jpg",
+            thumbnail: "https://image.thanhnien.vn/660/uploaded/ngocminh/2016_07_06/chay_onhu.jpg",
+            thumbnailWidth: 320,
+            thumbnailHeight: 174,
+            // isSelected: true,
+            caption: "After Rain (Jeshu John - designerspics.com)"
+        },
         {
-            src: "https://c2.staticflickr.com/9/8356/28897120681_3b2c0f43e0_b.jpg",
-            thumbnail: "https://c2.staticflickr.com/9/8356/28897120681_3b2c0f43e0_n.jpg",
+            src: "https://anh.24h.com.vn/upload/4-2016/images/2016-12-17/1481955945-148195586910098-no-2.jpg",
+            thumbnail: "https://anh.24h.com.vn/upload/4-2016/images/2016-12-17/1481955945-148195586910098-no-2.jpg",
             thumbnailWidth: 320,
             thumbnailHeight: 212,
             tags: [{value: "Ocean", title: "Ocean"}, {value: "People", title: "People"}],
-            caption: "Boats (Jeshu John - designerspics.com)"
+            caption: "CHAY COT DIEN"
         },
 
         {
-            src: "https://c4.staticflickr.com/9/8887/28897124891_98c4fdd82b_b.jpg",
-            thumbnail: "https://c4.staticflickr.com/9/8887/28897124891_98c4fdd82b_n.jpg",
+            src: "https://afamilycdn.com/150157425591193600/2020/9/29/06hvjm-16013610407751558716319-1601371294750-160137129504484028954.jpg",
+            thumbnail: "https://afamilycdn.com/150157425591193600/2020/9/29/06hvjm-16013610407751558716319-1601371294750-160137129504484028954.jpg",
             thumbnailWidth: 320,
-            thumbnailHeight: 212
+            thumbnailHeight: 212,
+            caption: "DUT DAY DIEN"
+        },
+        {
+            src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTcQhUFN6raMGPq490OvJSVBXk60HfO3VKLOQ&usqp=CAU",
+            thumbnail: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTcQhUFN6raMGPq490OvJSVBXk60HfO3VKLOQ&usqp=CAU",
+            thumbnailWidth: 320,
+            thumbnailHeight: 212,
+            caption: "DO COT DIEN"
+        },
+        {
+            src: "https://mb.dkn.tv/wp-content/uploads/2018/07/anh-4.jpg",
+            thumbnail: "https://mb.dkn.tv/wp-content/uploads/2018/07/anh-4.jpg",
+            thumbnailWidth: 320,
+            thumbnailHeight: 212,
+            caption: "Chim dau cot dien"
         }]
 let levels = []
 const ImageGalley = (props) => {
