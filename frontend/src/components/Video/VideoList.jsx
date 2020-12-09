@@ -1,7 +1,7 @@
 import {List, Avatar, Checkbox, Button, Modal, Form, Input, Select, DatePicker, Row, Col} from "antd";
 import TagGroup from "./TagGroup";
 import CreateIncidentModel from "../Model/CreateIncidentModel";
-import React, {useState, useRef} from "react";
+import React, {useState, useRef, useEffect} from "react";
 
 let defaultTags = [];
 let currentIndex = -1;
@@ -12,7 +12,7 @@ const VideoList = ({incidents = [], onChangeTags}) => {
     for (let incident of incidents) {
         allTags = allTags.concat(incident.tags || [])
     }
-    const [filteredVideos, setFilteredVideo] = useState([]);
+    const [filteredVideos, setFilteredVideo] = useState(incidents);
 
     console.log('allTags', allTags)
     let tagRef = useRef();
@@ -52,10 +52,18 @@ const VideoList = ({incidents = [], onChangeTags}) => {
         createRef.show();
     };
 
-    const handleFilter = (value) => {
-        console.log('value', value)
-        // setFilteredVideo(incidents.filter(item => ))
+    const checkMatchValue = (array1, array2) => {
+        const found = array1.filter( val => array2.includes(val) )
+        return Boolean(found.length)
     }
+
+    const handleFilter = (value = []) => {
+        if(!value.length) setFilteredVideo(incidents)
+        else setFilteredVideo(incidents.filter(item => checkMatchValue(item.tags, value)))
+    }
+    useEffect(() => {
+        setFilteredVideo(incidents)
+    }, [incidents])
     return (
         <div>
             <Row>
@@ -73,7 +81,6 @@ const VideoList = ({incidents = [], onChangeTags}) => {
                         <Form.Item
                             label="Tags"
                             name="tags"
-                            rules={[{required: true, message: "Vui lòng nhập thông tin!"}]}
                         >
                             <Select mode='multiple' onChange={handleFilter}>
                                 {allTags.map((item, index) => (
@@ -90,7 +97,7 @@ const VideoList = ({incidents = [], onChangeTags}) => {
 
             <List
                 itemLayout="horizontal"
-                dataSource={incidents}
+                dataSource={filteredVideos}
                 renderItem={(item, index) => (
                     <List.Item
                         actions={[
