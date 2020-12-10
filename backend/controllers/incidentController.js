@@ -142,6 +142,8 @@ const updateIncident = asyncHandler(async (req, res) => {
   res.json(newIncident);
 });
 
+const getIncidentsByImageOrVideoId = asyncHandler(async (req, res) => {});
+
 const getIncidents = asyncHandler(async (req, res) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
@@ -168,10 +170,28 @@ const getIncidents = asyncHandler(async (req, res) => {
     res.status(500);
     throw new Error(error);
   }
-  const { status, level } = req.body;
+  const { status, level, imageIds, videoIds } = req.body;
   incidents = incidents.filter((incident) => {
     if (level !== undefined && level !== incident.level.code) return false;
     if (status !== undefined && status !== incident.status.code) return false;
+    if (imageIds && imageIds.length) {
+      return (
+        incident.images.length > 0 &&
+        _.difference(
+          imageIds,
+          incident.images.map((image) => image.id)
+        ).length === 0
+      );
+    }
+    if (videoIds && videoIds.length) {
+      return (
+        incident.videos.length > 0 &&
+        _.difference(
+          videoIds,
+          incident.videos.map((video) => video.id)
+        ).length === 0
+      );
+    }
     // if (assignee && assignee.length > 0 && _.difference(assignee, incident.assignee).length > 0)
     //   return false;
     if (req.user.role === ROLE.DRONE_STAFF) return false;
@@ -239,4 +259,10 @@ const getAssignedIncidentIds = async (apiToken, projectType) => {
   return incidentIds;
 };
 
-export { getIncidents, getIncidentById, updateIncident, createIncident };
+export {
+  getIncidents,
+  getIncidentById,
+  updateIncident,
+  createIncident,
+  getIncidentsByImageOrVideoId
+};

@@ -43,6 +43,22 @@ const validateGetIncidentsList = () => {
           return Number.isInteger(e);
         });
       })
+      .optional({ nullable: true }),
+    check("imageIds", "ImageIds must be array of number")
+      .isArray()
+      .custom((a) => {
+        return a.every((e) => {
+          return Number.isInteger(e);
+        });
+      })
+      .optional({ nullable: true }),
+    check("videoIds", "VideoIds must be array of number")
+      .isArray()
+      .custom((a) => {
+        return a.every((e) => {
+          return Number.isInteger(e);
+        });
+      })
       .optional({ nullable: true })
   ];
 };
