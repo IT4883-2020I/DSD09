@@ -2,6 +2,7 @@ import asyncHandler from "express-async-handler";
 import axios from "axios";
 
 const ROLE = {
+  SUPER_ADMIN: "SUPER_ADMIN",
   ADMIN: "ADMIN",
   MANAGER: "MANAGER",
   SUPERVISOR: "SUPERVISOR",
@@ -75,7 +76,13 @@ const isIncidentStaff = (req, res, next) => {
 };
 
 const hasAuthorIncidents = (req, res, next) => {
-  const hasAccess = [ROLE.ADMIN, ROLE.MANAGER, ROLE.SUPERVISOR, ROLE.INCIDENT_STAFF];
+  const hasAccess = [
+    ROLE.ADMIN,
+    ROLE.MANAGER,
+    ROLE.SUPERVISOR,
+    ROLE.INCIDENT_STAFF,
+    ROLE.SUPER_ADMIN
+  ];
   if (req.user && hasAccess.includes(req.user.role)) {
     next();
   } else {

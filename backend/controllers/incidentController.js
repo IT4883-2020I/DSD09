@@ -9,6 +9,7 @@ import _ from "lodash";
 import axios from "axios";
 
 const ROLE = {
+  SUPER_ADMIN: "SUPER_ADMIN",
   ADMIN: "ADMIN",
   MANAGER: "MANAGER",
   SUPERVISOR: "SUPERVISOR",
