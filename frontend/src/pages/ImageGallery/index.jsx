@@ -16,12 +16,13 @@ import useBaseHook from "@hooks/BaseHooks";
 import Gallery from 'react-grid-gallery';
 import incidentLevelService from "@services/incidentLevelService";
 import incidentService from "@services/incidentService";
+import imageService from "@services/imageService";
 import moment from "moment";
 const IMAGES =
     [
         {
-            src: "https://image.thanhnien.vn/660/uploaded/ngocminh/2016_07_06/chay_onhu.jpg",
-            thumbnail: "https://image.thanhnien.vn/660/uploaded/ngocminh/2016_07_06/chay_onhu.jpg",
+            src: "https://res.cloudinary.com/webtt20191/image/upload/v1607243994/chay-rung/chay-rung-44.jpg",
+            thumbnail: "https://res.cloudinary.com/webtt20191/image/upload/v1607243994/chay-rung/chay-rung-44.jpg",
             thumbnailWidth: 320,
             thumbnailHeight: 174,
             // isSelected: true,
@@ -59,19 +60,53 @@ const IMAGES =
         }]
 let levels = []
 const ImageGalley = (props) => {
-    const [images, setImages] = useState(IMAGES)
+    const [images, setImages] = useState([])
     const [selectAllChecked, setSelectAllChecked] = useState(false)
     const [visible, setVisible] = useState(false)
     const [confirmLoading, setConfirmLoading] = useState(false)
     const [form] = Form.useForm()
+    const [selectedIds, setSelectedIds] = useState([])
 
     useEffect(() => {
         fetchLevels()
     }, [])
 
     const fetchLevels = async () => {
-        let [error2, res = []] = await to(incidentLevelService().index())
-        levels = res
+        console.log('fetch level')
+        let [leverRes = {}, imagesRes = []] = await (Promise.all([
+            incidentLevelService().index(),
+            imageService().getImagesByMonitoredId({id: ''})
+        ]))
+        console.log('images', imagesRes)
+        console.log('leverRes', leverRes)
+        levels = leverRes
+        if(imagesRes.status == 200) {
+            let _images = (imagesRes.result || []).map((item) => {
+                let createdAt = moment(item.createdAt).format('DD/MM/YYYY hh:mm:ss')
+                let nameType = ''
+                switch (item.problemType) {
+                    case 0: nameType = 'Cháy rừng';break
+                    case 1: nameType = 'Đê điều';break
+                    case 2: nameType = 'Lưới điện';break
+                    case 3: nameType = 'Cây trồng';break
+                    default: nameType = ''
+                }
+                return {
+                    ...item,
+                    src: item.link,
+                    caption: item.title,
+                    thumbnailWidth: 320,
+                    thumbnailHeight: 212,
+                    thumbnail: item.link,
+                    tags: [{value: createdAt, title: 'Created At'}, {value: nameType, title: "Type"}],
+
+                }
+            })
+            setImages(_images)
+        } else {
+            message.error(leverRes.message)
+        }
+
     }
     const allImagesSelected = (_images) => {
         return _images.filter((img) => Boolean(img.isSelected)).length == _images.length;
@@ -115,12 +150,13 @@ const ImageGalley = (props) => {
 
     const handleOk = async () => {
         setConfirmLoading(true);
+        let selectedImages = images.filter((item) => Boolean(item.isSelected))
         form.validateFields().then(async values => {
             console.log('values', values)
             let [error, res] = await to(incidentService().create({
                 ...values,
                 dueDate: moment(values.dueDate).format('YYYY-MM-DD'),
-                images: [],
+                images: selectedImages,
                 type: "LUOI_DIEN"
             }))
             if(error) message.error('Đã có lỗi xảy ra!')

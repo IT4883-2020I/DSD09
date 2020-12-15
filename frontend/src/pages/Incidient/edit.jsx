@@ -58,7 +58,8 @@ const IncidentEdit = (props) => {
     let [error2, _status = []] = await to(incidentStatusService().index())
     if(error) message.error('Không thể trả về thông tin sự cố!')
     if(error1) message.error('Không thể trả về danh sách mức độ sự cố!')
-    setIncident(incident || {})
+    let _images = (incident.images || []).map((item) => {return {...item, isSelected: false}})
+    setIncident({...incident, images: _images} || {})
     setLevels(_levels)
     setStatus(_status)
     console.log('incident', incident)
@@ -115,7 +116,7 @@ const IncidentEdit = (props) => {
           </Descriptions.Item>
           <Descriptions.Item label="Ảnh" span={2}>
             <Gallery
-                images={IMAGES}
+                images={incident.images || []}
                 showLightboxThumbnails={true}
                 enableImageSelection={false}
             />
