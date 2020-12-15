@@ -597,6 +597,16 @@
           "description": "Level code của sự cố (lấy thông qua API /incident-levels)",
           "example": 0
         },
+        "imageIds": {
+          "type": "array",
+          "description": "Mảng id của ảnh cần filter",
+          "example": [100]
+        },
+        "videoIds": {
+          "type": "array",
+          "description": "Mảng id của video cần filter",
+          "example": []
+        },
         "offset": {
           "type": "number",
           "description": "Offset phân trang",

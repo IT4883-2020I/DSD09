@@ -4,7 +4,8 @@ import {
   getIncidents,
   getIncidentById,
   updateIncident,
-  createIncident
+  createIncident,
+  getIncidentsByImageOrVideoId
 } from "../controllers/incidentController.js";
 import {
   protect,
