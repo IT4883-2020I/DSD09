@@ -199,7 +199,7 @@ const getIncidents = asyncHandler(async (req, res) => {
     if (req.user.role === ROLE.INCIDENT_STAFF) {
       return assignedIncidentIds.includes(incident._id);
     }
-    return incident.type.type === req.user.type;
+    return req.user.type === "ALL_PROJECT" ? true : incident.type.type === req.user.type;
   });
   const limit = req.body.limit || 20;
   const offset = req.body.offset || 0;
