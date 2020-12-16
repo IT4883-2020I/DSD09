@@ -57,6 +57,21 @@ const createIncident = asyncHandler(async (req, res) => {
   let createIncident = new Incident(incident);
   let newIncident = await createIncident.save();
   newIncident = await findIncidentById(newIncident._id);
+  try {
+    let image = newIncident.images.length ? newIncident.images[0] : null;
+    await logAddIncident({
+      regionId: image ? image.idSupervisedArea + "" : "",
+      imageId: image ? image.id + "" : "",
+      videoId: newIncident.videos.length ? newIncident.videos[0].id + "" : "",
+      entityId: image ? image.monitoredObjectId + "" : "",
+      description: newIncident.description,
+      authorId: req.user.id + "",
+      projectType: newIncident.type.type,
+      name: newIncident.name
+    });
+  } catch (e) {
+    console.log(e.response.data);
+  }
   return res.json(newIncident);
 });
 
@@ -140,6 +155,21 @@ const updateIncident = asyncHandler(async (req, res) => {
   }
   await incident.save();
   const newIncident = await findIncidentById(req.params.id);
+  try {
+    let image = newIncident.images.length ? newIncident.images[0] : null;
+    await logEditIncident({
+      regionId: image ? image.idSupervisedArea + "" : "",
+      imageId: image ? image.id + "" : "",
+      videoId: newIncident.videos.length ? newIncident.videos[0].id + "" : "",
+      entityId: image ? image.monitoredObjectId + "" : "",
+      description: newIncident.description,
+      authorId: req.user.id + "",
+      projectType: newIncident.type.type,
+      name: newIncident.name
+    });
+  } catch (e) {
+    console.log(e.response.data);
+  }
   res.json(newIncident);
 });
 
@@ -258,6 +288,14 @@ const getAssignedIncidentIds = async (apiToken, projectType) => {
         .concat(pending_tasks.map((item) => item.incident_id))
         .concat(done_tasks.map((item) => item.incident_id));
   return incidentIds;
+};
+
+const logEditIncident = (logBody) => {
+  return axios.post("http://it4883logging.herokuapp.com/api/incident/edit", logBody);
+};
+
+const logAddIncident = (logBody) => {
+  return axios.post("http://it4883logging.herokuapp.com/api/incident/add", logBody);
 };
 
 export {
