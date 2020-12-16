@@ -20,18 +20,11 @@ const protect = asyncHandler(async (req, res, next) => {
         "project-type": projectType
       }
     });
-    if (!verify || !verify.data) {
-      return res.status(500).json({ message: "Lỗi hệ thống!" });
-    }
-    if (verify.data.status === "fail") {
-      return res.status(401).json(verify.data);
-    }
     req.user = verify.data.result;
     next();
   } catch (e) {
-    return res
-      .status(500)
-      .json({ message: "Call API https://distributed.de-lalcool.com/api/verify-token lỗi" });
+    const { status, data } = e.response;
+    return res.status(status).json(data);
   }
 });
 
