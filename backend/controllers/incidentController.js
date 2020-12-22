@@ -101,7 +101,7 @@ const updateIncident = asyncHandler(async (req, res) => {
     return;
   }
   const incident = await findIncidentById(req.params.id);
-  if (incident.type.type !== req.user.type) {
+  if (req.user.type !== "ALL_PROJECT" && incident.type.type !== req.user.type) {
     res.status(404);
     throw new Error("Incident not found");
   }
@@ -240,7 +240,7 @@ const getIncidents = asyncHandler(async (req, res) => {
 const getIncidentById = asyncHandler(async (req, res) => {
   try {
     const incident = await findIncidentById(req.params.id);
-    if (incident.type.type !== req.user.type) {
+    if (req.user.type !== "ALL_PROJECT" && incident.type.type !== req.user.type) {
       res.status(404);
       throw new Error("Incident not found");
     }
