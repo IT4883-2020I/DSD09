@@ -72,6 +72,44 @@ const createIncident = asyncHandler(async (req, res) => {
   } catch (e) {
     console.log(e.response.data);
   }
+  try {
+    const allUser = await getUserList(req.user.type, req.user.api_token);
+    const toUserIDs = allUser.data.result
+      .filter(
+        (user) =>
+          user.status === "ACTIVE" && (user.role === ROLE.MANAGER || user.role === ROLE.SUPERVISOR)
+      )
+      .map((user) => user.id + "");
+    let refType = 10;
+    switch (newIncident.type.type) {
+      case "CHAY_RUNG":
+        refType = 12;
+        break;
+      case "CAY_TRONG":
+        refType = 11;
+        break;
+      case "DE_DIEU":
+        refType = 13;
+        break;
+      default:
+        break;
+    }
+    await createNotification(
+      { "api-token": req.user.api_token, "project-type": req.user.type },
+      {
+        fromUserID: req.user.id + "",
+        toUserIDs,
+        refID: newIncident._id,
+        refType,
+        refLinkView: "https://it4483.cf/incidents/" + newIncident._id,
+        level: newIncident.level.code,
+        content: "Phát hiện sự cố mới",
+        ntfType: 0
+      }
+    );
+  } catch (e) {
+    console.log(e);
+  }
   return res.json(newIncident);
 });
 
@@ -296,6 +334,21 @@ const logEditIncident = (logBody) => {
 
 const logAddIncident = (logBody) => {
   return axios.post("http://it4883logging.herokuapp.com/api/incident/add", logBody);
+};
+
+const getUserList = (projectType, token) => {
+  return axios.get("https://distributed.de-lalcool.com/api/user?page_id=0&page_size=-1", {
+    headers: {
+      token: token,
+      "project-type": projectType
+    }
+  });
+};
+
+const createNotification = (notificationHeader, notificationBody) => {
+  return axios.post("https://it4483-dsd04.herokuapp.com/create_ntf_2", notificationBody, {
+    headers: notificationHeader
+  });
 };
 
 export {
