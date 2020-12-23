@@ -10,7 +10,7 @@ import { protect, isAdmin } from "../middleware/authMiddleware.js";
 import { validateCreateIncidentStatus } from "../validator/incident-status.js";
 
 router
-  .get("/", protect, isAdmin, getIncidentStatuses)
+  .get("/", protect, getIncidentStatuses)
   .post("/", protect, isAdmin, validateCreateIncidentStatus(), createIncidentStatus);
 router
   .route("/:id")
