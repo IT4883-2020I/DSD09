@@ -269,9 +269,12 @@ const getIncidents = asyncHandler(async (req, res) => {
     }
     return req.user.type === "ALL_PROJECT" ? true : incident.type.type === req.user.type;
   });
-  const limit = req.body.limit || 20;
-  const offset = req.body.offset || 0;
-  let paginationIncidents = incidents.slice(offset, offset + limit);
+  const limit = req.body.limit;
+  const offset = req.body.offset;
+  let paginationIncidents;
+  if (limit === undefined || limit === null || offset === undefined || offset === null)
+    paginationIncidents = incidents;
+  else paginationIncidents = incidents.slice(offset, offset + limit);
   res.json({ incidents: paginationIncidents, total: incidents.length });
 });
 
