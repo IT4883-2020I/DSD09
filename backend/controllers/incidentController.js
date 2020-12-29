@@ -82,7 +82,8 @@ const createIncident = asyncHandler(async (req, res) => {
     const toUserIDs = allUser.data.result
       .filter(
         (user) =>
-          user.status === "ACTIVE" && (user.role === ROLE.MANAGER || user.role === ROLE.SUPERVISOR)
+          user.status === "ACTIVE" &&
+          (user.role === ROLE.MANAGER || user.role === ROLE.SUPERVISOR || user.role === ROLE.ADMIN)
       )
       .map((user) => user.id + "");
     let refType = 10;
