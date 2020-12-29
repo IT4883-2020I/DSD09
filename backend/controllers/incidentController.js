@@ -23,6 +23,11 @@ const createIncident = asyncHandler(async (req, res) => {
     res.status(422).json({ errors: errors.array() });
     return;
   }
+
+  if (req.user.type !== "ALL_PROJECT" && req.body.type !== req.user.type) {
+    return res.status(401).json({ message: "Not authorized" });
+  }
+
   let incident = req.body;
   // incident.images = incident.images.map((image) => {
   //   return { url: image };
