@@ -106,7 +106,7 @@ const createIncident = asyncHandler(async (req, res) => {
         toUserIDs,
         refID: newIncident._id,
         refType,
-        refLinkView: "https://it4483.cf/incidents/" + newIncident._id,
+        refLinkView: "/incidents/" + newIncident._id,
         level: newIncident.level.code,
         content: "Phát hiện sự cố mới",
         ntfType: 0
