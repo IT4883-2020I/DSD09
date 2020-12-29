@@ -337,11 +337,11 @@ const getAssignedIncidentIds = async (apiToken, projectType) => {
 };
 
 const logEditIncident = (logBody) => {
-  return axios.post("http://it4883logging.herokuapp.com/api/incident/edit", logBody);
+  return axios.post("http://14.248.5.197:5012/api/incident/edit", logBody);
 };
 
 const logAddIncident = (logBody) => {
-  return axios.post("http://it4883logging.herokuapp.com/api/incident/add", logBody);
+  return axios.post("http://14.248.5.197:5012/api/incident/add", logBody);
 };
 
 const getUserList = (projectType, token) => {
@@ -354,6 +354,7 @@ const getUserList = (projectType, token) => {
 };
 
 const createNotification = (notificationHeader, notificationBody) => {
+  console.log(notificationBody);
   return axios.post("https://it4483-dsd04.herokuapp.com/create_ntf_2", notificationBody, {
     headers: notificationHeader
   });
