@@ -69,9 +69,9 @@ const validateUpdateIncident = () => {
   return [
     check("level", "Level must be numeric").isNumeric().optional({ nullable: true }),
     check("status", "Status must be numeric").isNumeric().optional({ nullable: true }),
-    check("type", "Type must be in LUOI_DIEN, CAY_TRONG, CHAY_RUNG, DE_DIEU")
+    check("type", "Type must be in ALL_PROJECT, LUOI_DIEN, CAY_TRONG, CHAY_RUNG, DE_DIEU")
       .custom((a) => {
-        return ["LUOI_DIEN", "CAY_TRONG", "CHAY_RUNG", "DE_DIEU"].includes(a);
+        return ["ALL_PROJECT", "LUOI_DIEN", "CAY_TRONG", "CHAY_RUNG", "DE_DIEU"].includes(a);
       })
       .optional({ nullable: true }),
     check("loggedTime", "loggedTime must be numeric > 0")
