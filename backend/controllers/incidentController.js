@@ -64,6 +64,7 @@ const createIncident = asyncHandler(async (req, res) => {
   newIncident = await findIncidentById(newIncident._id);
   try {
     let image = newIncident.images.length ? newIncident.images[0] : null;
+    console.log(newIncident);
     await logAddIncident({
       regionId: image ? image.idSupervisedArea + "" : "",
       imageId: image ? image.id + "" : "",
@@ -71,11 +72,11 @@ const createIncident = asyncHandler(async (req, res) => {
       entityId: image ? image.monitoredObjectId + "" : "",
       description: newIncident.description,
       authorId: req.user.id + "",
-      projectType: newIncident.type.type,
+      projectType: (newIncident.type || {}).type,
       name: newIncident.name
     });
   } catch (e) {
-    console.log(e.response.data);
+    console.log(e);
   }
   try {
     const allUser = await getUserList(req.user.type, req.user.api_token);
