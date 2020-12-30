@@ -8,9 +8,11 @@ const validateCreateIncident = () => {
     check("level", "Level must be numeric").isNumeric().optional({ nullable: true }),
     check("dueDate", "Invalid Due date").isISO8601("yyyy-mm-dd").optional({ nullable: true }),
     check("type", "Type is required").not().isEmpty(),
-    check("type", "Type must be in LUOI_DIEN, CAY_TRONG, CHAY_RUNG, DE_DIEU").custom((a) => {
-      return ["LUOI_DIEN", "CAY_TRONG", "CHAY_RUNG", "DE_DIEU"].includes(a);
-    }),
+    check("type", "Type must be in ALL_PROJECT, LUOI_DIEN, CAY_TRONG, CHAY_RUNG, DE_DIEU").custom(
+      (a) => {
+        return ["ALL_PROJECT", "LUOI_DIEN", "CAY_TRONG", "CHAY_RUNG", "DE_DIEU"].includes(a);
+      }
+    ),
     check("images", "Images must be Array of image url drive")
       .isArray()
       .optional({ nullable: true }),
